@@ -1,0 +1,175 @@
+{
+  "signs": {
+    "Aries": {
+      "element": "Fire",
+      "modality": "Cardinal",
+      "ruler": "Mars",
+      "symbol": "Ram",
+      "dates": "March 21 - April 19",
+      "keywords": ["initiative", "courage", "action", "pioneering", "independence"],
+      "body_part": "Head",
+      "optimal_activities": ["Starting projects", "Physical challenges", "Competition", "Leadership"],
+      "avoid_activities": ["Patience-requiring tasks", "Detailed work", "Long-term planning"]
+    },
+    "Taurus": {
+      "element": "Earth",
+      "modality": "Fixed",
+      "ruler": "Venus",
+      "symbol": "Bull",
+      "dates": "April 20 - May 20",
+      "keywords": ["stability", "sensuality", "patience", "determination", "material security"],
+      "body_part": "Throat/Neck",
+      "optimal_activities": ["Financial planning", "Gardening", "Cooking", "Art appreciation"],
+      "avoid_activities": ["Rushing", "Change", "Instability"]
+    },
+    "Gemini": {
+      "element": "Air",
+      "modality": "Mutable",
+      "ruler": "Mercury",
+      "symbol": "Twins",
+      "dates": "May 21 - June 20",
+      "keywords": ["communication", "curiosity", "adaptability", "wit", "duality"],
+      "body_part": "Arms/Hands/Lungs",
+      "optimal_activities": ["Writing", "Learning", "Networking", "Short trips"],
+      "avoid_activities": ["Long-term focus", "Emotional depth", "Routine"]
+    },
+    "Cancer": {
+      "element": "Water",
+      "modality": "Cardinal",
+      "ruler": "Moon",
+      "symbol": "Crab",
+      "dates": "June 21 - July 22",
+      "keywords": ["nurturing", "emotion", "home", "intuition", "protection"],
+      "body_part": "Stomach/Breasts",
+      "optimal_activities": ["Family time", "Home decoration", "Cooking", "Emotional healing"],
+      "avoid_activities": ["Confrontation", "Risk-taking", "Emotional coldness"]
+    },
+    "Leo": {
+      "element": "Fire",
+      "modality": "Fixed",
+      "ruler": "Sun",
+      "symbol": "Lion",
+      "dates": "July 23 - August 22",
+      "keywords": ["creativity", "leadership", "generosity", "drama", "self-expression"],
+      "body_part": "Heart/Spine",
+      "optimal_activities": ["Creative projects", "Leadership", "Romance", "Performance"],
+      "avoid_activities": ["Background roles", "Criticism", "Mundane tasks"]
+    },
+    "Virgo": {
+      "element": "Earth",
+      "modality": "Mutable",
+      "ruler": "Mercury",
+      "symbol": "Virgin",
+      "dates": "August 23 - September 22",
+      "keywords": ["analysis", "service", "health", "precision", "improvement"],
+      "body_part": "Digestive System",
+      "optimal_activities": ["Organization", "Health routines", "Detail work", "Service"],
+      "avoid_activities": ["Chaos", "Big picture only", "Imperfection tolerance"]
+    },
+    "Libra": {
+      "element": "Air",
+      "modality": "Cardinal",
+      "ruler": "Venus",
+      "symbol": "Scales",
+      "dates": "September 23 - October 22",
+      "keywords": ["harmony", "partnership", "beauty", "justice", "diplomacy"],
+      "body_part": "Kidneys/Lower Back",
+      "optimal_activities": ["Relationships", "Negotiations", "Art", "Social events"],
+      "avoid_activities": ["Conflict", "Solo decisions", "Ugliness"]
+    },
+    "Scorpio": {
+      "element": "Water",
+      "modality": "Fixed",
+      "ruler": "Pluto/Mars",
+      "symbol": "Scorpion",
+      "dates": "October 23 - November 21",
+      "keywords": ["transformation", "intensity", "depth", "power", "mystery"],
+      "body_part": "Reproductive System",
+      "optimal_activities": ["Research", "Psychology", "Intimacy", "Transformation work"],
+      "avoid_activities": ["Superficiality", "Betrayal", "Powerlessness"]
+    },
+    "Sagittarius": {
+      "element": "Fire",
+      "modality": "Mutable",
+      "ruler": "Jupiter",
+      "symbol": "Archer",
+      "dates": "November 22 - December 21",
+      "keywords": ["expansion", "adventure", "philosophy", "optimism", "freedom"],
+      "body_part": "Hips/Thighs",
+      "optimal_activities": ["Travel", "Higher education", "Philosophy", "Sports"],
+      "avoid_activities": ["Confinement", "Details", "Pessimism"]
+    },
+    "Capricorn": {
+      "element": "Earth",
+      "modality": "Cardinal",
+      "ruler": "Saturn",
+      "symbol": "Sea-Goat",
+      "dates": "December 22 - January 19",
+      "keywords": ["ambition", "discipline", "responsibility", "structure", "mastery"],
+      "body_part": "Knees/Bones/Skin",
+      "optimal_activities": ["Career planning", "Long-term goals", "Building", "Authority"],
+      "avoid_activities": ["Shortcuts", "Emotional display", "Frivolity"]
+    },
+    "Aquarius": {
+      "element": "Air",
+      "modality": "Fixed",
+      "ruler": "Uranus/Saturn",
+      "symbol": "Water Bearer",
+      "dates": "January 20 - February 18",
+      "keywords": ["innovation", "humanity", "independence", "eccentricity", "vision"],
+      "body_part": "Ankles/Circulatory System",
+      "optimal_activities": ["Technology", "Social causes", "Innovation", "Group work"],
+      "avoid_activities": ["Tradition", "Emotional demands", "Conformity"]
+    },
+    "Pisces": {
+      "element": "Water",
+      "modality": "Mutable",
+      "ruler": "Neptune/Jupiter",
+      "symbol": "Fish",
+      "dates": "February 19 - March 20",
+      "keywords": ["intuition", "compassion", "spirituality", "imagination", "transcendence"],
+      "body_part": "Feet/Lymphatic System",
+      "optimal_activities": ["Meditation", "Art", "Healing", "Spiritual practice"],
+      "avoid_activities": ["Harsh reality", "Strict boundaries", "Materialism"]
+    }
+  },
+  "elements": {
+    "Fire": {
+      "signs": ["Aries", "Leo", "Sagittarius"],
+      "qualities": ["Active", "Enthusiastic", "Spontaneous", "Inspiring"],
+      "keywords": ["energy", "passion", "action", "inspiration"]
+    },
+    "Earth": {
+      "signs": ["Taurus", "Virgo", "Capricorn"],
+      "qualities": ["Practical", "Grounded", "Reliable", "Sensual"],
+      "keywords": ["stability", "material", "physical", "building"]
+    },
+    "Air": {
+      "signs": ["Gemini", "Libra", "Aquarius"],
+      "qualities": ["Intellectual", "Communicative", "Social", "Objective"],
+      "keywords": ["thought", "communication", "ideas", "connection"]
+    },
+    "Water": {
+      "signs": ["Cancer", "Scorpio", "Pisces"],
+      "qualities": ["Emotional", "Intuitive", "Nurturing", "Receptive"],
+      "keywords": ["feeling", "intuition", "healing", "depth"]
+    }
+  },
+  "modalities": {
+    "Cardinal": {
+      "signs": ["Aries", "Cancer", "Libra", "Capricorn"],
+      "qualities": ["Initiating", "Active", "Leading", "Starting"],
+      "season_position": "Beginning"
+    },
+    "Fixed": {
+      "signs": ["Taurus", "Leo", "Scorpio", "Aquarius"],
+      "qualities": ["Stabilizing", "Persistent", "Determined", "Maintaining"],
+      "season_position": "Middle"
+    },
+    "Mutable": {
+      "signs": ["Gemini", "Virgo", "Sagittarius", "Pisces"],
+      "qualities": ["Adaptable", "Flexible", "Changing", "Transitioning"],
+      "season_position": "End"
+    }
+  }
+}

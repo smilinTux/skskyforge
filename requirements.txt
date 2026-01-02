@@ -1,0 +1,121 @@
+# SkyForge - Sovereign Alignment Calendar System
+# Python Dependencies
+# Install with: pip install -r requirements.txt
+
+# ==============================================================================
+# Core Dependencies
+# ==============================================================================
+
+# Data validation and settings management
+pydantic>=2.5.0,<3.0.0
+pydantic-settings>=2.1.0,<3.0.0
+
+# ==============================================================================
+# Astronomical Calculations
+# ==============================================================================
+
+# Swiss Ephemeris Python wrapper - core astronomical engine
+pyswisseph>=2.10.3,<3.0.0
+
+# PyEphem - supplementary astronomical calculations
+ephem>=4.1.5,<5.0.0
+
+# ==============================================================================
+# Command Line Interface
+# ==============================================================================
+
+# CLI framework
+click>=8.1.0,<9.0.0
+
+# Rich terminal output (colors, tables, progress bars)
+rich>=13.7.0,<14.0.0
+
+# ==============================================================================
+# Web API (Optional - for dashboard)
+# ==============================================================================
+
+# FastAPI web framework
+fastapi>=0.109.0,<1.0.0
+
+# ASGI server
+uvicorn>=0.27.0,<1.0.0
+
+# Template engine
+jinja2>=3.1.3,<4.0.0
+
+# ==============================================================================
+# Export Formats
+# ==============================================================================
+
+# PDF generation
+reportlab>=4.1.0,<5.0.0
+
+# Excel file handling
+openpyxl>=3.1.2,<4.0.0
+
+# Data manipulation and analysis
+pandas>=2.2.0,<3.0.0
+
+# ==============================================================================
+# Geocoding and Timezone
+# ==============================================================================
+
+# Geocoding library (city name to coordinates)
+geopy>=2.4.1,<3.0.0
+
+# Timezone detection from coordinates
+timezonefinder>=6.4.0,<7.0.0
+
+# Timezone handling
+pytz>=2024.1
+
+# ==============================================================================
+# Utilities
+# ==============================================================================
+
+# Environment variable management
+python-dotenv>=1.0.1,<2.0.0
+
+# YAML configuration files
+pyyaml>=6.0.1,<7.0.0
+
+# Async HTTP client
+httpx>=0.27.0,<1.0.0
+
+# ==============================================================================
+# Development Dependencies
+# ==============================================================================
+
+# Testing framework
+pytest>=8.0.0,<9.0.0
+
+# Test coverage
+pytest-cov>=4.1.0,<5.0.0
+
+# Async test support
+pytest-asyncio>=0.23.0,<1.0.0
+
+# Code formatting
+black>=24.1.0,<25.0.0
+
+# Linting
+ruff>=0.2.0,<1.0.0
+
+# Type checking
+mypy>=1.8.0,<2.0.0
+
+# ==============================================================================
+# Optional Dependencies (uncomment as needed)
+# ==============================================================================
+
+# For advanced PDF styling
+# svglib>=1.5.1
+
+# For image handling in PDFs
+# pillow>=10.2.0
+
+# For markdown processing
+# markdown>=3.5.0
+
+# For date parsing
+# python-dateutil>=2.8.2

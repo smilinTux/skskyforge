@@ -1,0 +1,126 @@
+# SkyForge Configuration Settings
+# ================================
+# Global settings for the SkyForge system
+#
+# Copyright (C) 2025 S&K Holding QT (Quantum Technologies)
+# SK = staycuriousANDkeepsmilin 🐧
+
+# Application Settings
+app:
+  name: SkyForge
+  version: 1.0.0
+  description: "Sovereign Alignment Calendar System"
+  
+# Path Configuration
+paths:
+  # Directory for user profiles
+  profiles_dir: ./config/profiles
+  
+  # Directory for generated output
+  output_dir: ./output
+  
+  # Directory for ephemeris data
+  ephemeris_dir: ./ephe
+  
+  # Directory for reference data
+  data_dir: ./src/skyforge/data
+
+# Default Generation Settings
+generation:
+  # Default output formats when not specified
+  default_formats:
+    - json
+  
+  # Include preview of tomorrow in daily entries
+  include_tomorrow_preview: true
+  
+  # Default target year (current year if null)
+  default_year: null
+
+# Export Settings
+export:
+  # PDF settings
+  pdf:
+    page_size: A4
+    font_family: Helvetica
+    include_cover_page: true
+    include_monthly_summaries: true
+  
+  # Excel settings
+  excel:
+    include_charts: true
+    color_coding: true
+    freeze_headers: true
+  
+  # JSON settings
+  json:
+    pretty_print: true
+    indent: 2
+
+# Calculation Settings
+calculations:
+  # Use Swiss Ephemeris for accurate calculations (recommended)
+  use_swisseph: true
+  
+  # Default timezone when not specified
+  default_timezone: UTC
+  
+  # Include void of course moon calculations
+  include_moon_voc: true
+
+# Human Design Settings (placeholder for future implementation)
+human_design:
+  # Include gate calculations
+  include_gates: true
+  
+  # Include channel calculations
+  include_channels: true
+
+# Numerology Settings
+numerology:
+  # Preserve master numbers (11, 22, 33)
+  preserve_master_numbers: true
+  
+  # Include universal day calculations
+  include_universal_day: true
+
+# Biorhythm Settings
+biorhythm:
+  # Threshold for critical day warnings (0-10)
+  critical_threshold: 5
+  
+  # Include triple critical warnings (all cycles critical)
+  warn_triple_critical: true
+
+# Risk Analysis Settings
+risk:
+  # Show warnings only above this threshold (0-100)
+  warning_threshold: 25
+  
+  # Include protective practice recommendations
+  include_protective_practices: true
+
+# Wellness Settings
+wellness:
+  # Include exercise recommendations
+  include_exercise: true
+  
+  # Include nourishment guidance
+  include_nourishment: true
+  
+  # Include ritual recommendations
+  include_rituals: true
+
+# Spiritual Library Settings
+spiritual_library:
+  # Rotate sources based on element (recommended)
+  rotate_by_element: true
+  
+  # Include contemplation questions
+  include_reflection_prompts: true
+
+# Logging Settings
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: null  # Set to path for file logging

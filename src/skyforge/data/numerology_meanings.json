@@ -1,0 +1,138 @@
+{
+  "numbers": {
+    "1": {
+      "name": "The Pioneer",
+      "theme": "New Beginnings & Independence",
+      "energy_quality": "Active",
+      "keywords": ["initiative", "leadership", "independence", "originality", "courage"],
+      "favorable_for": ["Starting projects", "Taking initiative", "Self-promotion", "Independence"],
+      "challenging_for": ["Teamwork", "Patience", "Following others", "Compromise"],
+      "day_guidance": "A day to assert yourself and take the lead. Trust your pioneering spirit.",
+      "affirmation": "I am a bold creator of my own destiny."
+    },
+    "2": {
+      "name": "The Diplomat",
+      "theme": "Partnership & Balance",
+      "energy_quality": "Receptive",
+      "keywords": ["cooperation", "diplomacy", "sensitivity", "patience", "harmony"],
+      "favorable_for": ["Collaboration", "Listening", "Mediation", "Details", "Relationships"],
+      "challenging_for": ["Quick decisions", "Standing alone", "Confrontation", "Impatience"],
+      "day_guidance": "A day for cooperation and finding balance. Listen more than you speak.",
+      "affirmation": "I create harmony through understanding and patience."
+    },
+    "3": {
+      "name": "The Creator",
+      "theme": "Expression & Creativity",
+      "energy_quality": "Creative",
+      "keywords": ["communication", "joy", "creativity", "self-expression", "optimism"],
+      "favorable_for": ["Creative work", "Social events", "Writing", "Speaking", "Performing"],
+      "challenging_for": ["Routine tasks", "Discipline", "Serious matters", "Focusing"],
+      "day_guidance": "A day to express yourself creatively and spread joy. Let your light shine.",
+      "affirmation": "My creative expression brings joy to myself and others."
+    },
+    "4": {
+      "name": "The Builder",
+      "theme": "Foundation & Structure",
+      "energy_quality": "Stable",
+      "keywords": ["discipline", "organization", "hard work", "foundation", "security"],
+      "favorable_for": ["Planning", "Building", "Organization", "Practical tasks", "Discipline"],
+      "challenging_for": ["Spontaneity", "Change", "Taking risks", "Flexibility"],
+      "day_guidance": "A day for practical work and building solid foundations. Focus on structure.",
+      "affirmation": "I build lasting foundations through dedicated effort."
+    },
+    "5": {
+      "name": "The Adventurer",
+      "theme": "Change & Freedom",
+      "energy_quality": "Dynamic",
+      "keywords": ["freedom", "adventure", "change", "versatility", "curiosity"],
+      "favorable_for": ["Travel", "Variety", "Adaptability", "New experiences", "Flexibility"],
+      "challenging_for": ["Routine", "Commitment", "Long-term planning", "Staying put"],
+      "day_guidance": "A day for adventure and embracing change. Be flexible and curious.",
+      "affirmation": "I embrace change as the pathway to growth and freedom."
+    },
+    "6": {
+      "name": "The Nurturer",
+      "theme": "Responsibility & Love",
+      "energy_quality": "Nurturing",
+      "keywords": ["home", "family", "responsibility", "service", "harmony"],
+      "favorable_for": ["Family matters", "Home projects", "Caregiving", "Teaching", "Healing"],
+      "challenging_for": ["Personal freedom", "Saying no", "Self-focus", "Avoiding duty"],
+      "day_guidance": "A day for nurturing others and creating harmony. Focus on loved ones.",
+      "affirmation": "I create love and harmony in my home and relationships."
+    },
+    "7": {
+      "name": "The Seeker",
+      "theme": "Introspection & Wisdom",
+      "energy_quality": "Spiritual",
+      "keywords": ["analysis", "spirituality", "wisdom", "solitude", "inner knowing"],
+      "favorable_for": ["Research", "Meditation", "Study", "Reflection", "Spiritual practice"],
+      "challenging_for": ["Social events", "Quick decisions", "Surface matters", "Action"],
+      "day_guidance": "A day for inner reflection and seeking deeper truths. Honor solitude.",
+      "affirmation": "I trust my inner wisdom to guide me to truth."
+    },
+    "8": {
+      "name": "The Achiever",
+      "theme": "Abundance & Power",
+      "energy_quality": "Material",
+      "keywords": ["success", "power", "abundance", "manifestation", "authority"],
+      "favorable_for": ["Business", "Financial matters", "Authority", "Achievement", "Goals"],
+      "challenging_for": ["Letting go", "Emotional matters", "Spiritual pursuits", "Humility"],
+      "day_guidance": "A day for manifesting abundance and stepping into your power.",
+      "affirmation": "I am a powerful manifestor of abundance and success."
+    },
+    "9": {
+      "name": "The Humanitarian",
+      "theme": "Completion & Compassion",
+      "energy_quality": "Universal",
+      "keywords": ["completion", "humanitarianism", "wisdom", "endings", "universal love"],
+      "favorable_for": ["Finishing projects", "Giving", "Release", "Global thinking", "Service"],
+      "challenging_for": ["New beginnings", "Personal gain", "Attachment", "Selfishness"],
+      "day_guidance": "A day for completion and compassionate service. Let go of what's finished.",
+      "affirmation": "I serve the greater good with wisdom and compassion."
+    },
+    "11": {
+      "name": "The Illuminator",
+      "theme": "Illumination & Intuition (Master Number)",
+      "energy_quality": "Inspirational",
+      "keywords": ["intuition", "inspiration", "illumination", "idealism", "spiritual insight"],
+      "favorable_for": ["Spiritual work", "Inspiration", "Teaching", "Healing", "Channeling"],
+      "challenging_for": ["Grounding", "Practical matters", "Self-doubt", "Overwhelm"],
+      "day_guidance": "A powerful day for spiritual insight and inspiration. Trust your intuition.",
+      "master_message": "Master Number 11 active - heightened intuition and spiritual insight available.",
+      "affirmation": "I am a channel for divine inspiration and illumination."
+    },
+    "22": {
+      "name": "The Master Builder",
+      "theme": "Master Builder (Master Number)",
+      "energy_quality": "Manifesting",
+      "keywords": ["vision", "practical idealism", "large projects", "legacy", "manifestation"],
+      "favorable_for": ["Large-scale projects", "Manifestation", "Building systems", "Leadership"],
+      "challenging_for": ["Small thinking", "Impatience", "Overwhelm", "Scattered energy"],
+      "day_guidance": "A day to manifest grand visions into reality. Think big, act practically.",
+      "master_message": "Master Number 22 active - potential for manifesting grand visions.",
+      "affirmation": "I build lasting structures that serve humanity."
+    },
+    "33": {
+      "name": "The Master Teacher",
+      "theme": "Master Teacher (Master Number)",
+      "energy_quality": "Compassionate",
+      "keywords": ["compassion", "healing", "teaching", "selfless service", "mastery"],
+      "favorable_for": ["Teaching", "Healing", "Compassionate service", "Guidance", "Upliftment"],
+      "challenging_for": ["Self-care", "Boundaries", "Personal needs", "Saying no"],
+      "day_guidance": "A day for profound healing and teaching. Serve with love.",
+      "master_message": "Master Number 33 active - profound healing and teaching energy available.",
+      "affirmation": "I teach and heal through the power of unconditional love."
+    }
+  },
+  "personal_year_meanings": {
+    "1": "A year of new beginnings, fresh starts, and planting seeds for the future.",
+    "2": "A year of patience, partnerships, and nurturing what was started.",
+    "3": "A year of creative expression, social expansion, and joy.",
+    "4": "A year of building foundations, hard work, and establishing stability.",
+    "5": "A year of change, freedom, adventure, and unexpected opportunities.",
+    "6": "A year of responsibility, family, home, and service to others.",
+    "7": "A year of introspection, spiritual growth, and inner development.",
+    "8": "A year of achievement, abundance, power, and material success.",
+    "9": "A year of completion, release, endings, and preparation for new cycles."
+  }
+}

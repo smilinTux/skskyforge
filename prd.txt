@@ -1,0 +1,645 @@
+# Product Requirements Document (PRD)
+# SkyForge - Sovereign Alignment Calendar System
+# Version 1.0.0
+
+================================================================================
+                              PRODUCT OVERVIEW
+================================================================================
+
+Product Name: SkyForge
+Tagline: "Forge your sovereign path through the cosmos"
+Version: 1.0.0
+Last Updated: January 2, 2026
+
+## Executive Summary
+
+SkyForge is a comprehensive daily preparation system that generates personalized
+sovereign alignment calendars integrating 10 domains of guidance: moon phases,
+numerology, solar return transits, Human Design, I Ching, biorhythms, risk
+analysis, exercise recommendations, nourishment guidance, and spiritual readings.
+
+The system is designed for individuals seeking optimal daily performance through
+scientifically mapped and spiritually grounded guidance.
+
+## Problem Statement
+
+Individuals seeking holistic daily guidance must currently:
+- Consult multiple separate apps/resources for different systems
+- Manually correlate information across domains
+- Lack personalized integration of various wisdom traditions
+- Miss the synergies between different guidance systems
+
+## Solution
+
+SkyForge provides a unified, personalized daily preparation system that:
+- Integrates 10 complementary guidance domains
+- Generates year-long calendars for any target year
+- Supports multiple user profiles with different birth data
+- Outputs in multiple formats (PDF, Excel, JSON, Web)
+- Provides actionable daily practices for optimal performance
+
+================================================================================
+                              TARGET USERS
+================================================================================
+
+## Primary Persona: The Conscious Optimizer
+
+Name: Alex
+Age: 35-55
+Occupation: Professional/Entrepreneur
+Characteristics:
+- Interested in personal development and optimization
+- Open to both scientific and spiritual approaches
+- Values structured daily routines
+- Seeks deeper meaning and alignment in daily life
+- Comfortable with technology but prefers simple interfaces
+
+Goals:
+- Start each day with clarity and purpose
+- Make decisions aligned with natural cycles
+- Optimize physical, emotional, and mental performance
+- Integrate spiritual practices into daily life
+
+Pain Points:
+- Information overload from multiple guidance sources
+- Lack of personalization in generic horoscopes/guidance
+- Difficulty maintaining consistent daily practices
+- Missing connections between different systems
+
+## Secondary Persona: The Spiritual Practitioner
+
+Name: Maya
+Age: 28-45
+Occupation: Healer/Coach/Creative
+Characteristics:
+- Deep knowledge of one or more esoteric systems
+- Seeks integration across traditions
+- Values authenticity and accuracy
+- May use for personal and client work
+
+Goals:
+- Deepen personal practice with integrated guidance
+- Potentially use insights in client sessions
+- Validate understanding across systems
+- Save time on manual calculations
+
+================================================================================
+                              FEATURES & REQUIREMENTS
+================================================================================
+
+## Core Features
+
+### F1: Calendar Generation
+Priority: P0 (Must Have)
+
+Description: Generate complete sovereign alignment calendars for any specified
+year, with all 10 domains calculated and integrated for each day.
+
+Requirements:
+- F1.1: Accept target year as input (1900-2100 range)
+- F1.2: Generate data for all 365/366 days of the year
+- F1.3: Support partial generation (single month, date range)
+- F1.4: Calculate all 10 domains for each day
+- F1.5: Synthesize daily themes from domain data
+- F1.6: Generate power hours and caution periods
+- F1.7: Create affirmations and mantras aligned with daily energy
+
+Acceptance Criteria:
+- [ ] Can generate full year calendar in under 5 minutes
+- [ ] All domain calculations are accurate and verified
+- [ ] Daily themes coherently synthesize all domain inputs
+- [ ] Output is complete with no missing days or fields
+
+### F2: User Profile Management
+Priority: P0 (Must Have)
+
+Description: Create and manage user profiles with birth data for personalized
+calculations.
+
+Requirements:
+- F2.1: Create new profiles with birth date (required)
+- F2.2: Support optional birth time (exact or range)
+- F2.3: Support optional birth location (city or coordinates)
+- F2.4: Store profiles persistently in YAML format
+- F2.5: List all available profiles
+- F2.6: Edit existing profiles
+- F2.7: Delete profiles
+- F2.8: Set default profile for quick access
+
+Acceptance Criteria:
+- [ ] Profiles persist across sessions
+- [ ] Birth time ranges correctly map to midpoint times
+- [ ] City names resolve to coordinates via geocoding
+- [ ] Invalid data is rejected with clear error messages
+
+### F3: Multi-Format Export
+Priority: P0 (Must Have)
+
+Description: Export generated calendars in multiple formats for different
+use cases.
+
+Requirements:
+- F3.1: JSON export with complete data structure
+- F3.2: PDF export with formatted daily pages
+- F3.3: Excel/CSV export with tabular data
+- F3.4: Support multiple format selection per generation
+- F3.5: Configurable output directory
+
+Acceptance Criteria:
+- [ ] JSON output validates against schema
+- [ ] PDF is readable and well-formatted
+- [ ] Excel has proper column headers and data types
+- [ ] Files are named with year and profile identifier
+
+### F4: Command-Line Interface
+Priority: P0 (Must Have)
+
+Description: Provide intuitive CLI for all operations.
+
+Requirements:
+- F4.1: `skyforge generate` command with year and profile options
+- F4.2: `skyforge profile` subcommands (create, list, show, edit, delete)
+- F4.3: `skyforge preview` command for single day view
+- F4.4: Rich terminal output with colors and formatting
+- F4.5: Progress indicators for long operations
+- F4.6: Helpful error messages and usage hints
+
+Acceptance Criteria:
+- [ ] All commands have --help documentation
+- [ ] Tab completion works for commands and options
+- [ ] Errors display helpful recovery suggestions
+- [ ] Progress bar shows during calendar generation
+
+### F5: Web Dashboard (Future)
+Priority: P2 (Nice to Have)
+
+Description: Web-based interface for calendar viewing and generation.
+
+Requirements:
+- F5.1: FastAPI backend with REST endpoints
+- F5.2: Daily view with all domain data
+- F5.3: Monthly calendar overview
+- F5.4: Profile management interface
+- F5.5: Download generated files
+
+================================================================================
+                              DOMAIN SPECIFICATIONS
+================================================================================
+
+## D1: Moon Phase & Sign
+Priority: P0
+
+Data Points:
+- Moon phase name (New, Waxing Crescent, First Quarter, etc.)
+- Illumination percentage (0-100%)
+- Zodiac sign position
+- Sign element (Fire, Earth, Air, Water)
+- Sign modality (Cardinal, Fixed, Mutable)
+- Void of Course periods (start/end times)
+- Energy theme interpretation
+- Optimal activities list
+- Activities to avoid list
+
+Calculation Method:
+- Swiss Ephemeris for lunar longitude
+- Phase from Sun-Moon angle
+- VOC from last major aspect to sign change
+
+## D2: Numerology
+Priority: P0
+
+Data Points:
+- Life Path number (constant for user)
+- Personal Year number
+- Personal Month number
+- Personal Day number
+- Universal Day number
+- Day theme interpretation
+- Energy quality description
+- Favorable activities
+- Challenging activities
+- Master number alerts (11, 22, 33)
+
+Calculation Method:
+- Standard Pythagorean reduction
+- Preserve master numbers 11, 22, 33
+
+## D3: Solar Return & Transits
+Priority: P0
+
+Data Points:
+- Current Sun sign
+- House focus (1-12) based on Solar Return
+- House theme interpretation
+- Active planetary aspects
+- Transit message/guidance
+
+Calculation Method:
+- Swiss Ephemeris for planetary positions
+- Solar Return chart for target year
+- Daily house profection
+
+## D4: Human Design
+Priority: P0
+
+Data Points:
+- User's Type (Generator, Projector, etc.)
+- Strategy
+- Authority
+- Active gates (from transiting planets)
+- Active channels
+- Defined centers for the day
+- Decision-making cue
+- Energy management guidance
+- Signature theme
+- Not-self warning
+
+Calculation Method:
+- Gate positions from planetary longitudes
+- Channel activation from gate pairs
+- Center definition from channels
+
+## D5: I Ching
+Priority: P0
+
+Data Points:
+- Hexagram number (1-64)
+- Hexagram name
+- Upper and lower trigrams
+- Judgment text
+- Image text
+- Changing lines
+- Moving-to hexagram (if applicable)
+- Daily wisdom interpretation
+- Action guidance
+- Caution/warning
+
+Calculation Method:
+- Derived from Human Design Sun gate
+- Line from gate line position
+
+## D6: Biorhythm
+Priority: P0
+
+Data Points:
+- Physical cycle value (-100 to +100)
+- Emotional cycle value
+- Intellectual cycle value
+- Phase for each cycle (Peak, Rising, Critical, etc.)
+- Critical day flags
+- Overall energy assessment
+- Best activities for the day
+- Challenging activities
+- Peak hours recommendations
+
+Calculation Method:
+- Sinusoidal functions with periods 23/28/33 days
+- Critical when crossing zero (±5 range)
+
+## D7: Risk Analysis
+Priority: P0
+
+Data Points:
+- Spiritual risk level (1-10)
+- Emotional risk level (1-10)
+- Physical risk level (1-10)
+- Overall risk level (Low/Moderate/Elevated/High)
+- Risk score (0-100)
+- Specific warnings with source and severity
+- Protective practices
+- Grounding techniques
+
+Calculation Method:
+- Composite scoring from other domains
+- VOC, critical biorhythm days, challenging aspects
+
+## D8: Exercise & Embodiment
+Priority: P0
+
+Data Points:
+- Exercise type recommendation
+- Intensity level
+- Optimal time of day
+- Duration (minutes)
+- Specific activities list
+- Activities to avoid
+- Rationale for recommendation
+
+Calculation Method:
+- Rule-based from biorhythm and moon element
+
+## D9: Nourishment
+Priority: P0
+
+Data Points:
+- Element focus (based on moon)
+- Foods to emphasize
+- Foods to minimize
+- Hydration guidance
+- Meal timing advice
+- Breakfast suggestion
+- Lunch suggestion
+- Dinner suggestion
+- Snack suggestions
+
+Calculation Method:
+- Element-based dietary mapping
+- Biorhythm energy adjustment
+
+## D10: Spiritual Reading
+Priority: P0
+
+Data Points:
+- Source type (book, scripture, poetry, quote)
+- Tradition (Taoist, Stoic, Sufi, etc.)
+- Source title
+- Author
+- Chapter/verse reference
+- Reading text
+- Daily relevance explanation
+- Contemplation question
+- Embodiment practice
+
+Calculation Method:
+- Selection based on moon element and daily themes
+- Rotation through curated library
+
+## Additional Practices
+
+### Morning Ritual
+- Wake time suggestion
+- Intention setting phrase
+- Breathwork technique
+- Morning movement type
+- Duration
+
+### Meditation
+- Technique name
+- Duration
+- Optimal time
+- Focus theme
+- Mantra (if applicable)
+- Visualization (if applicable)
+
+### Journaling
+- Morning prompt
+- Evening prompt
+- Theme exploration question
+- Gratitude focus
+
+### Evening Ritual
+- Wind-down start time
+- Screen cutoff time
+- Reflection practice
+- Sleep preparation
+- Optimal sleep time
+
+### Daily Synthesis
+- Daily theme statement
+- Theme keywords
+- Power hours (time ranges with activities)
+- Caution periods (time ranges with warnings)
+- Daily affirmation
+- Daily mantra
+- Closing reflection
+- Tomorrow preview
+
+================================================================================
+                              USER STORIES
+================================================================================
+
+## Epic 1: Calendar Generation
+
+US1.1: As a user, I want to generate a full year calendar so that I have
+       guidance for every day of the year.
+       
+       Acceptance Criteria:
+       - Given I have a valid profile
+       - When I run `skyforge generate --year 2026`
+       - Then a complete 365-day calendar is generated
+       - And all 10 domains are calculated for each day
+
+US1.2: As a user, I want to generate a single month so that I can focus on
+       near-term planning.
+       
+       Acceptance Criteria:
+       - Given I have a valid profile
+       - When I run `skyforge generate --year 2026 --month 1`
+       - Then only January 2026 is generated
+       - And the output file reflects the month-only scope
+
+US1.3: As a user, I want to preview a single day so that I can quickly check
+       tomorrow's alignment.
+       
+       Acceptance Criteria:
+       - Given I have a valid profile
+       - When I run `skyforge preview --date 2026-01-15`
+       - Then the full daily preparation is displayed in terminal
+       - And no file is created (terminal output only)
+
+## Epic 2: Profile Management
+
+US2.1: As a user, I want to create a profile with my birth data so that
+       calculations are personalized to me.
+       
+       Acceptance Criteria:
+       - When I run `skyforge profile create --name me --birth-date 1985-03-15`
+       - Then a profile is created and saved
+       - And my Life Path number is calculated and stored
+
+US2.2: As a user, I want to specify my birth time range when I don't know
+       the exact time so that I still get reasonably accurate Human Design.
+       
+       Acceptance Criteria:
+       - When I create a profile with `--birth-time-range morning`
+       - Then 9:00 AM is used for calculations
+       - And a confidence indicator is shown for time-sensitive data
+
+US2.3: As a user, I want to create profiles for family members so that I can
+       generate calendars for them too.
+       
+       Acceptance Criteria:
+       - When I create multiple profiles with different names
+       - Then each profile is stored separately
+       - And I can generate calendars for any profile
+
+## Epic 3: Export & Output
+
+US3.1: As a user, I want to export to PDF so that I can print my calendar.
+       
+       Acceptance Criteria:
+       - When I run `skyforge generate --year 2026 --format pdf`
+       - Then a formatted PDF file is created
+       - And each day has a dedicated page with all guidance
+
+US3.2: As a user, I want to export to Excel so that I can analyze patterns
+       in my data.
+       
+       Acceptance Criteria:
+       - When I run `skyforge generate --year 2026 --format excel`
+       - Then an .xlsx file is created
+       - And data is organized in columns with proper headers
+       - And biorhythm values can be charted
+
+US3.3: As a user, I want to export to JSON so that I can integrate with
+       other tools.
+       
+       Acceptance Criteria:
+       - When I run `skyforge generate --year 2026 --format json`
+       - Then a valid JSON file is created
+       - And the structure matches the documented schema
+
+================================================================================
+                              NON-FUNCTIONAL REQUIREMENTS
+================================================================================
+
+## Performance
+
+- NFR1: Full year generation completes in under 5 minutes on standard hardware
+- NFR2: Single day preview displays in under 2 seconds
+- NFR3: Memory usage stays under 500MB during generation
+
+## Reliability
+
+- NFR4: Astronomical calculations accurate to within 1 arc-minute
+- NFR5: Numerology calculations match standard Pythagorean method
+- NFR6: Biorhythm calculations match established formulas exactly
+
+## Usability
+
+- NFR7: CLI provides helpful error messages for all failure modes
+- NFR8: Documentation covers all features with examples
+- NFR9: Default profile enables immediate use after minimal setup
+
+## Security
+
+- NFR10: Birth data stored locally only, never transmitted
+- NFR11: API keys stored in environment variables, not code
+- NFR12: Output files created with user-only permissions
+
+## Compatibility
+
+- NFR13: Runs on Python 3.10+
+- NFR14: Works on Linux, macOS, and Windows
+- NFR15: PDF output compatible with standard PDF readers
+
+================================================================================
+                              TECHNICAL CONSTRAINTS
+================================================================================
+
+## Dependencies
+
+Required:
+- pyswisseph >= 2.10.3 (Swiss Ephemeris for astronomy)
+- pydantic >= 2.5.0 (Data validation)
+- click >= 8.1.0 (CLI framework)
+- rich >= 13.7.0 (Terminal formatting)
+- reportlab >= 4.1.0 (PDF generation)
+- openpyxl >= 3.1.2 (Excel export)
+- geopy >= 2.4.1 (Geocoding)
+- timezonefinder >= 6.4.0 (Timezone detection)
+
+Optional:
+- fastapi >= 0.109.0 (Web dashboard)
+- uvicorn >= 0.27.0 (ASGI server)
+
+## Data Storage
+
+- User profiles: YAML files in config/profiles/
+- Reference data: JSON files in src/skyforge/data/
+- Generated output: User-specified directory (default: ./output/)
+- Swiss Ephemeris files: ./ephe/ directory
+
+## External Services
+
+- Geocoding: Optional, for city name to coordinates conversion
+- No other external API dependencies for core functionality
+
+================================================================================
+                              MILESTONES & TIMELINE
+================================================================================
+
+## Phase 1: Core Foundation (Week 1-2)
+- [ ] Project structure setup
+- [ ] Data models defined
+- [ ] Swiss Ephemeris integration
+- [ ] Moon calculator
+- [ ] Numerology calculator
+- [ ] Biorhythm calculator
+
+## Phase 2: Advanced Calculators (Week 3-4)
+- [ ] Solar Return calculator
+- [ ] Human Design calculator
+- [ ] I Ching integration
+- [ ] Risk analyzer
+- [ ] Wellness analyzer
+
+## Phase 3: Output & Integration (Week 5-6)
+- [ ] Daily entry generator
+- [ ] JSON export
+- [ ] PDF export
+- [ ] Excel export
+- [ ] CLI implementation
+
+## Phase 4: Polish & Documentation (Week 7-8)
+- [ ] Spiritual library curation
+- [ ] Profile management
+- [ ] Testing suite
+- [ ] Documentation
+- [ ] Performance optimization
+
+## Phase 5: Web Dashboard (Future)
+- [ ] FastAPI backend
+- [ ] Web templates
+- [ ] Interactive calendar view
+
+================================================================================
+                              SUCCESS METRICS
+================================================================================
+
+## Functional Metrics
+
+- All 10 domains calculated correctly for test dates
+- PDF output renders without errors
+- CLI commands complete without crashes
+- Profile data persists correctly
+
+## Quality Metrics
+
+- Test coverage > 80%
+- No critical bugs in production use
+- Documentation covers all features
+
+## User Satisfaction Metrics
+
+- Daily guidance feels coherent and actionable
+- Calculations match user's existing knowledge of their charts
+- Export formats meet stated use cases
+
+================================================================================
+                              APPENDIX
+================================================================================
+
+## A: Glossary
+
+- **Biorhythm**: Theory that human life is affected by rhythmic biological cycles
+- **Human Design**: System combining astrology, I Ching, Kabbalah, and chakras
+- **I Ching**: Ancient Chinese divination text with 64 hexagrams
+- **Life Path**: Core numerology number derived from birth date
+- **Solar Return**: Astrological chart for when Sun returns to natal position
+- **Void of Course**: Period when Moon makes no major aspects before sign change
+
+## B: Reference Documents
+
+- agent.md: Technical specifications for AI coding agents
+- README.md: User documentation and quick start guide
+- CHANGELOG.md: Version history and changes
+
+## C: Contact
+
+Project Owner: [Your Name]
+Repository: [Repository URL]
+
+================================================================================
+                              END OF DOCUMENT
+================================================================================

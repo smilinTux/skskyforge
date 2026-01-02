@@ -1,0 +1,56 @@
+# SkyForge Default User Profile
+# -----------------------------------
+# This is a template profile. Replace with your actual birth data.
+#
+# Copyright (C) 2025 S&K Holding QT (Quantum Technologies)
+# SK = staycuriousANDkeepsmilin 🐧
+
+name: default
+
+birth_data:
+  # Required: Your birth date (YYYY-MM-DD format)
+  date: 1985-03-15
+  
+  # Optional: Exact birth time (HH:MM format, 24-hour)
+  # If unknown, leave commented out
+  # time: 14:30
+  
+  # Birth time range (if exact time unknown)
+  # Options: exact, morning, afternoon, evening, night, unknown
+  time_range: unknown
+  
+  # Optional: Birth location for accurate chart calculations
+  location:
+    city: Austin, TX, USA
+    # Coordinates will be auto-filled by geocoding if city is provided
+    latitude: 30.2672
+    longitude: -97.7431
+    timezone: America/Chicago
+
+# Optional: Current location (for relocated charts)
+current_location:
+  city: null
+  latitude: null
+  longitude: null
+  timezone: UTC
+
+# Auto-calculated values (will be filled on first run)
+life_path_number: null
+human_design_type: null
+human_design_strategy: null
+human_design_authority: null
+
+# Cached personal year calculations
+personal_year_cache: {}
+
+# Profile metadata
+metadata:
+  created_at: null
+  updated_at: null
+  notes: |
+    This is the default template profile.
+    Update with your actual birth data to get personalized results.
+    
+    For best accuracy, provide:
+    - Exact birth time (if known)
+    - Birth location with coordinates

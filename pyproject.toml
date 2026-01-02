@@ -1,0 +1,200 @@
+# SkyForge - Sovereign Alignment Calendar System
+# pyproject.toml - Project Configuration
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "skyforge"
+version = "1.0.0"
+description = "Sovereign Alignment Calendar System - Forge your path through the cosmos"
+readme = "README.md"
+license = {text = "AGPL-3.0"}
+requires-python = ">=3.10"
+authors = [
+    {name = "SkyForge Team"}
+]
+keywords = [
+    "astrology",
+    "numerology",
+    "human-design",
+    "i-ching",
+    "biorhythm",
+    "calendar",
+    "wellness",
+    "spiritual",
+    "daily-guidance",
+    "sovereign-alignment"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Astronomy",
+    "Topic :: Religion",
+    "Topic :: Utilities",
+]
+
+dependencies = [
+    "pydantic>=2.5.0,<3.0.0",
+    "pydantic-settings>=2.1.0,<3.0.0",
+    "pyswisseph>=2.10.3,<3.0.0",
+    "ephem>=4.1.5,<5.0.0",
+    "click>=8.1.0,<9.0.0",
+    "rich>=13.7.0,<14.0.0",
+    "reportlab>=4.1.0,<5.0.0",
+    "openpyxl>=3.1.2,<4.0.0",
+    "pandas>=2.2.0,<3.0.0",
+    "geopy>=2.4.1,<3.0.0",
+    "timezonefinder>=6.4.0,<7.0.0",
+    "pytz>=2024.1",
+    "python-dotenv>=1.0.1,<2.0.0",
+    "pyyaml>=6.0.1,<7.0.0",
+    "httpx>=0.27.0,<1.0.0",
+]
+
+[project.optional-dependencies]
+web = [
+    "fastapi>=0.109.0,<1.0.0",
+    "uvicorn>=0.27.0,<1.0.0",
+    "jinja2>=3.1.3,<4.0.0",
+]
+dev = [
+    "pytest>=8.0.0,<9.0.0",
+    "pytest-cov>=4.1.0,<5.0.0",
+    "pytest-asyncio>=0.23.0,<1.0.0",
+    "black>=24.1.0,<25.0.0",
+    "ruff>=0.2.0,<1.0.0",
+    "mypy>=1.8.0,<2.0.0",
+]
+all = [
+    "skyforge[web,dev]",
+]
+
+[project.scripts]
+skyforge = "skyforge.cli:cli"
+
+[project.urls]
+Homepage = "https://github.com/yourusername/skyforge"
+Documentation = "https://github.com/yourusername/skyforge#readme"
+Repository = "https://github.com/yourusername/skyforge"
+Issues = "https://github.com/yourusername/skyforge/issues"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+skyforge = [
+    "data/*.json",
+    "data/spiritual_library/*.json",
+    "web/templates/*.html",
+]
+
+# Black Configuration
+[tool.black]
+line-length = 88
+target-version = ["py310", "py311", "py312"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | ephe
+)/
+'''
+
+# Ruff Configuration
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # Pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (handled by black)
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]  # unused imports in __init__
+
+[tool.ruff.isort]
+known-first-party = ["skyforge"]
+
+# MyPy Configuration
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+strict_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = [
+    "swisseph.*",
+    "ephem.*",
+    "reportlab.*",
+    "geopy.*",
+]
+ignore_missing_imports = true
+
+# Pytest Configuration
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra -q --strict-markers"
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+]
+
+# Coverage Configuration
+[tool.coverage.run]
+source = ["src/skyforge"]
+branch = true
+omit = [
+    "*/tests/*",
+    "*/__init__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+show_missing = true

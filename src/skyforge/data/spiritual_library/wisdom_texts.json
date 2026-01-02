@@ -1,0 +1,325 @@
+{
+  "sources": [
+    {
+      "id": "tao_te_ching",
+      "title": "Tao Te Ching",
+      "author": "Lao Tzu",
+      "tradition": "Taoist",
+      "type": "book",
+      "element_affinity": "Earth",
+      "excerpts": [
+        {
+          "chapter": "1",
+          "text": "The Tao that can be told is not the eternal Tao. The name that can be named is not the eternal name.",
+          "reflection": "What truths in your life transcend words?"
+        },
+        {
+          "chapter": "2",
+          "text": "Under heaven all can see beauty as beauty only because there is ugliness. All can know good as good only because there is evil.",
+          "reflection": "How does contrast reveal truth in your experience today?"
+        },
+        {
+          "chapter": "8",
+          "text": "The highest good is like water. Water gives life to the ten thousand things and does not strive.",
+          "reflection": "Where can you flow rather than force today?"
+        },
+        {
+          "chapter": "15",
+          "text": "Do you have the patience to wait till your mud settles and the water is clear? Can you remain unmoving till the right action arises by itself?",
+          "reflection": "What clarity emerges when you stop stirring your thoughts?"
+        },
+        {
+          "chapter": "22",
+          "text": "Yield and overcome; bend and be straight; empty and be full; wear out and be new.",
+          "reflection": "What must you release to make space for renewal?"
+        },
+        {
+          "chapter": "33",
+          "text": "Knowing others is intelligence; knowing yourself is true wisdom. Mastering others is strength; mastering yourself is true power.",
+          "reflection": "What self-knowledge calls for your attention today?"
+        },
+        {
+          "chapter": "44",
+          "text": "Fame or self: Which matters more? Self or wealth: Which is more precious? Gain or loss: Which is more painful?",
+          "reflection": "What truly matters to you beneath surface desires?"
+        },
+        {
+          "chapter": "76",
+          "text": "A man is born gentle and weak. At his death he is hard and stiff. Thus the hard and stiff are companions of death, the soft and supple are companions of life.",
+          "reflection": "Where might softness serve you better than rigidity today?"
+        }
+      ]
+    },
+    {
+      "id": "meditations",
+      "title": "Meditations",
+      "author": "Marcus Aurelius",
+      "tradition": "Stoic",
+      "type": "book",
+      "element_affinity": "Fire",
+      "excerpts": [
+        {
+          "chapter": "Book II.1",
+          "text": "Begin each day by telling yourself: Today I shall meet people who are meddling, ungrateful, arrogant, dishonest, jealous, and surly.",
+          "reflection": "How will you respond with virtue regardless of others' actions?"
+        },
+        {
+          "chapter": "Book IV.3",
+          "text": "If you are distressed by anything external, the pain is not due to the thing itself, but to your estimate of it; and this you have the power to revoke at any moment.",
+          "reflection": "What story about your circumstances can you rewrite today?"
+        },
+        {
+          "chapter": "Book V.16",
+          "text": "The object of life is not to be on the side of the majority, but to escape finding oneself in the ranks of the insane.",
+          "reflection": "Where do you need courage to follow your own wisdom?"
+        },
+        {
+          "chapter": "Book VI.15",
+          "text": "Do not waste what remains of your life in speculating about your neighbors. Anything that distracts you from fidelity to the ruler within you means a loss of opportunity.",
+          "reflection": "What inner ruler deserves your attention today?"
+        },
+        {
+          "chapter": "Book VII.58",
+          "text": "Never value anything as profitable that compels you to break your promise, lose your self-respect, hate any man, curse, act the hypocrite.",
+          "reflection": "What values will you not compromise today?"
+        },
+        {
+          "chapter": "Book VIII.50",
+          "text": "The cucumber is bitter? Put it down. There are thorns in the path? Step around them. That is enough. Do not add: Why were such things ever produced in the world?",
+          "reflection": "What simple acceptance can bring you peace today?"
+        }
+      ]
+    },
+    {
+      "id": "dhammapada",
+      "title": "The Dhammapada",
+      "author": "Buddha",
+      "tradition": "Buddhist",
+      "type": "scripture",
+      "element_affinity": "Air",
+      "excerpts": [
+        {
+          "chapter": "Verse 1",
+          "text": "Mind is the forerunner of all actions. All deeds are led by mind, created by mind. If one speaks or acts with a corrupt mind, suffering follows.",
+          "reflection": "What is the quality of mind you bring to your actions today?"
+        },
+        {
+          "chapter": "Verse 5",
+          "text": "Hatred is never appeased by hatred in this world. By non-hatred alone is hatred appeased. This is an eternal law.",
+          "reflection": "Where can you choose understanding over resentment?"
+        },
+        {
+          "chapter": "Verse 17",
+          "text": "The doer of good rejoices here and hereafter; he rejoices in both worlds. He rejoices and exults, seeing the purity of his own deeds.",
+          "reflection": "What good deed can you do today that your future self will thank you for?"
+        },
+        {
+          "chapter": "Verse 61",
+          "text": "If on one's way one does not meet one's better or equal, let one resolutely pursue one's solitary course; there is no fellowship with the foolish.",
+          "reflection": "How can solitude serve your growth today?"
+        },
+        {
+          "chapter": "Verse 183",
+          "text": "To avoid all evil, to cultivate good, and to cleanse one's mind — this is the teaching of the Buddhas.",
+          "reflection": "What simple good can you cultivate today?"
+        },
+        {
+          "chapter": "Verse 223",
+          "text": "Conquer anger by love, evil by good; conquer the miser with liberality, and the liar with truth.",
+          "reflection": "What opposing force can you overcome with its antidote today?"
+        }
+      ]
+    },
+    {
+      "id": "rumi_poetry",
+      "title": "Poetry Collection",
+      "author": "Rumi",
+      "tradition": "Sufi",
+      "type": "poetry",
+      "element_affinity": "Water",
+      "excerpts": [
+        {
+          "chapter": "Selected Poems",
+          "text": "Out beyond ideas of wrongdoing and rightdoing, there is a field. I will meet you there.",
+          "reflection": "What judgment can you release to find deeper connection?"
+        },
+        {
+          "chapter": "Selected Poems",
+          "text": "The wound is the place where the Light enters you.",
+          "reflection": "How might your current struggle be your teacher?"
+        },
+        {
+          "chapter": "Selected Poems",
+          "text": "Don't grieve. Anything you lose comes round in another form.",
+          "reflection": "What has been lost that may be returning transformed?"
+        },
+        {
+          "chapter": "Selected Poems",
+          "text": "You are not a drop in the ocean. You are the entire ocean in a drop.",
+          "reflection": "How does this shift your sense of self and purpose?"
+        },
+        {
+          "chapter": "Selected Poems",
+          "text": "Stop acting so small. You are the universe in ecstatic motion.",
+          "reflection": "What small thinking limits your expression today?"
+        },
+        {
+          "chapter": "Selected Poems",
+          "text": "What you seek is seeking you.",
+          "reflection": "What is calling to you that you've been avoiding?"
+        },
+        {
+          "chapter": "Selected Poems",
+          "text": "Let yourself be silently drawn by the strange pull of what you really love. It will not lead you astray.",
+          "reflection": "What quiet longing deserves your attention?"
+        }
+      ]
+    },
+    {
+      "id": "bhagavad_gita",
+      "title": "Bhagavad Gita",
+      "author": "Vyasa",
+      "tradition": "Hindu",
+      "type": "scripture",
+      "element_affinity": "Fire",
+      "excerpts": [
+        {
+          "chapter": "2.47",
+          "text": "You have the right to work only, never to its fruits. Let not the fruits of action be your motive, nor let your attachment be to inaction.",
+          "reflection": "How can you act today without attachment to outcome?"
+        },
+        {
+          "chapter": "2.48",
+          "text": "Perform actions established in yoga, abandoning attachment, remaining even-minded in success and failure. This equanimity is called yoga.",
+          "reflection": "What would it mean to approach today's challenges with equanimity?"
+        },
+        {
+          "chapter": "3.19",
+          "text": "Therefore, perform your prescribed duties without attachment, for by working without attachment, one attains the Supreme.",
+          "reflection": "What duty can you fulfill today with pure intention?"
+        },
+        {
+          "chapter": "6.5",
+          "text": "Elevate yourself through the power of your mind, and do not degrade yourself, for the mind can be the friend and also the enemy of the self.",
+          "reflection": "Is your mind your ally or adversary today?"
+        },
+        {
+          "chapter": "9.27",
+          "text": "Whatever you do, whatever you eat, whatever you offer or give away, and whatever austerities you perform — do that as an offering unto me.",
+          "reflection": "How might dedicating your actions transform them?"
+        }
+      ]
+    },
+    {
+      "id": "zen_koans",
+      "title": "Zen Koans",
+      "author": "Various Masters",
+      "tradition": "Zen Buddhist",
+      "type": "wisdom_collection",
+      "element_affinity": "Air",
+      "excerpts": [
+        {
+          "chapter": "The Sound of One Hand",
+          "text": "You know the sound of two hands clapping. What is the sound of one hand?",
+          "reflection": "What question has no logical answer but opens understanding?"
+        },
+        {
+          "chapter": "Joshu's Dog",
+          "text": "A monk asked Joshu, 'Does a dog have Buddha nature?' Joshu replied, 'Mu.'",
+          "reflection": "What certainty can you release to find deeper truth?"
+        },
+        {
+          "chapter": "The Gateless Gate",
+          "text": "When you meet a master on the road, do not speak, do not be silent. How then will you greet him?",
+          "reflection": "What response lies beyond words and silence?"
+        },
+        {
+          "chapter": "Original Face",
+          "text": "What was your original face before your parents were born?",
+          "reflection": "Who are you beyond your history and identity?"
+        },
+        {
+          "chapter": "Sitting Quietly",
+          "text": "Sitting quietly, doing nothing, Spring comes, and the grass grows by itself.",
+          "reflection": "What emerges when you stop trying so hard?"
+        }
+      ]
+    },
+    {
+      "id": "proverbs_wisdom",
+      "title": "Wisdom Literature",
+      "author": "Solomon & Others",
+      "tradition": "Judeo-Christian",
+      "type": "scripture",
+      "element_affinity": "Earth",
+      "excerpts": [
+        {
+          "chapter": "Proverbs 3:5-6",
+          "text": "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways acknowledge him, and he will make your paths straight.",
+          "reflection": "Where might surrender bring more clarity than struggle?"
+        },
+        {
+          "chapter": "Proverbs 16:9",
+          "text": "In their hearts humans plan their course, but the Lord establishes their steps.",
+          "reflection": "How can you hold your plans loosely today?"
+        },
+        {
+          "chapter": "Ecclesiastes 3:1",
+          "text": "There is a time for everything, and a season for every activity under the heavens.",
+          "reflection": "What season of life are you in, and what does it call for?"
+        },
+        {
+          "chapter": "Proverbs 27:1",
+          "text": "Do not boast about tomorrow, for you do not know what a day may bring.",
+          "reflection": "How fully can you embrace the present moment?"
+        },
+        {
+          "chapter": "Ecclesiastes 7:14",
+          "text": "When times are good, be happy; but when times are bad, consider this: God has made the one as well as the other.",
+          "reflection": "What hidden gift might your current challenge contain?"
+        }
+      ]
+    },
+    {
+      "id": "hafiz_poetry",
+      "title": "Poetry Collection",
+      "author": "Hafiz",
+      "tradition": "Sufi",
+      "type": "poetry",
+      "element_affinity": "Water",
+      "excerpts": [
+        {
+          "chapter": "Selected Poems",
+          "text": "I wish I could show you when you are lonely or in darkness the astonishing light of your own being.",
+          "reflection": "What radiance do you carry that you've forgotten?"
+        },
+        {
+          "chapter": "Selected Poems",
+          "text": "Even after all this time, the sun never says to the earth 'You owe me.' Look what happens with a love like that. It lights the whole sky.",
+          "reflection": "Where can you give without expectation today?"
+        },
+        {
+          "chapter": "Selected Poems",
+          "text": "Fear is the cheapest room in the house. I'd like to see you in better living conditions.",
+          "reflection": "What fear is it time to move beyond?"
+        },
+        {
+          "chapter": "Selected Poems",
+          "text": "Now is the time to know that all you do is sacred.",
+          "reflection": "How might recognizing the sacred in your actions transform them?"
+        },
+        {
+          "chapter": "Selected Poems",
+          "text": "The words you speak become the house you live in.",
+          "reflection": "What house are you building with your words?"
+        }
+      ]
+    }
+  ],
+  "element_mapping": {
+    "Fire": ["meditations", "bhagavad_gita"],
+    "Earth": ["tao_te_ching", "proverbs_wisdom"],
+    "Air": ["dhammapada", "zen_koans"],
+    "Water": ["rumi_poetry", "hafiz_poetry"]
+  }
+}
