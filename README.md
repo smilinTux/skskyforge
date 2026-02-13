@@ -34,8 +34,8 @@ SkyForge is a comprehensive daily preparation system that generates personalized
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/skyforge.git
-cd skyforge
+git clone https://github.com/smilinTux/SKyForge.git
+cd SKyForge
 
 # Create virtual environment
 python -m venv venv
