@@ -177,8 +177,29 @@ def generate(year: int, profile: str, month: Optional[int], formats: tuple, outp
             
             console.print(f"[green]✓[/green] JSON exported: {filepath}")
         
-        elif fmt in ("pdf", "excel", "csv"):
-            console.print(f"[yellow]![/yellow] {fmt.upper()} export coming soon")
+        elif fmt == "pdf":
+            from .exporters import export_pdf
+
+            filename = f"skskyforge_{profile}_{period_name.replace(' ', '_')}.pdf"
+            filepath = output_dir / filename
+            export_pdf(entries, filepath)
+            console.print(f"[green]✓[/green] PDF exported: {filepath}")
+
+        elif fmt == "excel":
+            from .exporters import export_excel
+
+            filename = f"skskyforge_{profile}_{period_name.replace(' ', '_')}.xlsx"
+            filepath = output_dir / filename
+            export_excel(entries, filepath)
+            console.print(f"[green]✓[/green] Excel exported: {filepath}")
+
+        elif fmt == "csv":
+            from .exporters import export_csv
+
+            filename = f"skskyforge_{profile}_{period_name.replace(' ', '_')}.csv"
+            filepath = output_dir / filename
+            export_csv(entries, filepath)
+            console.print(f"[green]✓[/green] CSV exported: {filepath}")
     
     console.print(f"\n[bold green]✓ Calendar generation complete![/bold green]")
 
