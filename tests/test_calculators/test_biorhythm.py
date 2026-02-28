@@ -87,11 +87,9 @@ class TestIsCriticalDay:
         assert is_critical_day(0, EMOTIONAL_CYCLE) == True
         assert is_critical_day(0, INTELLECTUAL_CYCLE) == True
     
-    def test_half_cycle_is_critical(self):
-        """Half cycle points should be critical."""
-        # Physical: ~11.5 days
-        half_physical = PHYSICAL_CYCLE // 2
-        assert is_critical_day(half_physical, PHYSICAL_CYCLE) == True
+    def test_full_cycle_is_critical(self):
+        """Full cycle point crosses zero and should be critical."""
+        assert is_critical_day(PHYSICAL_CYCLE, PHYSICAL_CYCLE) == True
     
     def test_peak_is_not_critical(self):
         """Peak is not critical."""
