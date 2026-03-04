@@ -1,0 +1,26 @@
+name: skyforge
+version: "0.1.0"
+description: >
+  SkyForge — atmospheric data analysis and visualization suite for
+  sovereign environmental monitoring. Calculators, analyzers, and
+  exporters for climate and weather data workflows.
+
+author:
+  name: smilinTux.org
+  email: hello@smilintux.org
+
+tags: [skyforge, atmospheric, data, analysis, visualization, climate]
+category: tools
+
+tools:
+  - name: skyforge_analyze
+    description: Run atmospheric data analysis on a dataset
+    entrypoint: skskyforge.skill:analyze
+
+  - name: skyforge_calculate
+    description: Perform atmospheric calculations
+    entrypoint: skskyforge.skill:calculate
+
+  - name: skyforge_export
+    description: Export analyzed data to various formats
+    entrypoint: skskyforge.skill:export
