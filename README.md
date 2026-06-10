@@ -1,210 +1,136 @@
-# SKSkyforge 🌟
+# skskyforge — SKyForge 🌟
 
-> **"Forge your sovereign path through the cosmos"**
+> **Forge your sovereign path through the cosmos.** One command, ten domains of
+> daily guidance, fused into a single morning report — on **your** hardware, for
+> **your** birth data, no app, no account, no cloud.
 
-SKSkyforge is a comprehensive daily preparation system that generates personalized sovereign alignment calendars. It integrates 10 domains of guidance into a unified system for optimal daily performance.
+skskyforge is the **Sovereign Alignment Calendar System** of the
+[SKWorld](https://skworld.io) ecosystem. It takes a person's birth data and a date
+and produces a complete **daily alignment report** — moon phase, numerology,
+solar transits, Human Design, I Ching, biorhythm cycles, risk analysis, and
+wellness practices — all computed locally from the **Swiss Ephemeris** (real
+astronomy, not a lookup table) and rendered to your terminal, a file, PDF, Excel,
+CSV, or JSON.
 
-## ✨ Features
+It is built to run **non-interactively on a timer**: `skskyforge daily` is designed
+to fire every morning from a systemd timer or crontab and drop today's report where
+an agent (or you) can read it.
 
-### 10 Integrated Domains
+## The 60-second version
 
-| Domain | Description |
-|--------|-------------|
-| 🌓 **Moon Phase & Sign** | Lunar phase, zodiac position, void-of-course periods |
-| 🔢 **Numerology** | Life path, personal year/month/day calculations |
-| 🌞 **Solar Return** | Annual chart, house focus, planetary transits |
-| 🧬 **Human Design** | Type, strategy, authority, daily gate activations |
-| ☯️ **I Ching** | Daily hexagram overlay with wisdom guidance |
-| 📈 **Biorhythm** | Physical, emotional, intellectual cycle tracking |
-| ⚠️ **Risk Analysis** | Multi-domain risk scoring and warnings |
-| 🧘 **Exercise & Embodiment** | Physical activity recommendations |
-| 🥣 **Nourishment** | Element-based dietary guidance |
-| 📖 **Spiritual Reading** | Daily wisdom texts from curated library |
-
-### Key Capabilities
-
-- **Year-Agnostic**: Generate calendars for any year (2025, 2026, 2027, etc.)
-- **Multi-User Profiles**: Support multiple users with saved birth data
-- **Multiple Output Formats**: PDF, Excel/CSV, JSON, Web Dashboard
-- **Actionable Guidance**: Daily practices for optimal performance
-
-## 🚀 Quick Start
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/smilinTux/SKyForge.git
-cd SKyForge
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# or: venv\Scripts\activate  # Windows
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Install in development mode
-pip install -e .
+```mermaid
+flowchart LR
+    BD["your birth data<br/>(date · time · place)"] --> PROF["a saved profile"]
+    DATE["a date<br/>(today / any day / a whole year)"] --> GEN
+    PROF --> GEN["generate_daily_entry()<br/>runs every calculator + analyzer"]
+    GEN --> EPH["Swiss Ephemeris<br/>(real planetary positions)"]
+    GEN --> REPORT["one DailyPreparation<br/>(10 domains synthesized)"]
+    REPORT --> OUT["terminal · markdown · JSON<br/>· PDF · Excel · CSV"]
+    OUT -.->|"on a timer (skskyforge daily)"| MORNING["your morning, every day"]
 ```
 
-### Create Your Profile
+Each domain is a small, self-contained calculator/analyzer; the generator
+orchestrates all of them and synthesizes a daily theme, power hours, caution
+periods, an affirmation, and a closing reflection.
+
+## Quickstart
 
 ```bash
-# Interactive profile creation
-skskyforge profile create
-
-# Or with all options
+pip install -e ".[all]"                          # core + geocoding (geopy/timezonefinder)
 skskyforge profile create \
-  --name "my_profile" \
-  --birth-date "1985-03-15" \
-  --birth-time "14:30" \
-  --birth-location "New York, NY, USA"
+  --name luna --birth-date 1992-06-21 \
+  --birth-time 14:30 --birth-location "Austin, TX"   # auto-geocodes via OpenStreetMap
+skskyforge preview --date 2026-03-20 --profile luna  # one rich day in your terminal
+skskyforge daily --profile luna --format markdown    # today's report (non-interactive)
+skskyforge generate --year 2026 --profile luna --format pdf   # a whole year as a PDF
+skskyforge install-daily --time 07:30 --profile luna # schedule it (systemd/cron/schtasks)
 ```
 
-### Generate Your Calendar
+Profiles, output, and settings live under `~/.skskyforge/`. The CLI entrypoint is
+`skskyforge` (Python/Click); a thin `skskyforge-js` shim is published for npm
+discoverability.
 
-```bash
-# Generate full year calendar
-skskyforge generate --year 2026
+## The 10 domains
 
-# Generate single month
-skskyforge generate --year 2026 --month 1
+| # | Domain | What it computes | Source |
+|---|--------|------------------|--------|
+| 1 | 🌓 **Moon Phase & Sign** | lunar phase %, zodiac sign, element/modality, void-of-course windows | `calculators/moon.py` |
+| 2 | 🔢 **Numerology** | life path, personal year/month/day, universal day, day theme | `calculators/numerology.py` |
+| 3 | 🌞 **Solar Return** | sun sign, natal→transit house focus + theme, planetary aspects | `calculators/solar.py` + `planets.py` |
+| 4 | 🧬 **Human Design** | type, strategy, authority, signature, not-self, daily gate activations | `generators/daily_entry.py` + `calculators/planets.py` |
+| 5 | ☯️ **I Ching** | daily hexagram (from the Sun gate), trigrams, changing lines, guidance | `generators/daily_entry.py` |
+| 6 | 📈 **Biorhythm** | physical / emotional / intellectual cycles + critical-day flags | `calculators/biorhythm.py` |
+| 7 | ⚠️ **Risk Analysis** | multi-domain risk score (0–100) + warnings | `analyzers/risk.py` |
+| 8 | 🧘 **Exercise & Embodiment** | element-tuned activity type, intensity, time, duration | `analyzers/wellness.py` |
+| 9 | 🥣 **Nourishment** | element-based dietary guidance | `analyzers/wellness.py` |
+| 10 | 📖 **Spiritual Reading** | curated wisdom text rotated by elemental energy (Stoic/Taoist/Buddhist/Sufi) | `generators/daily_entry.py` |
 
-# Generate with specific format
-skskyforge generate --year 2026 --format pdf
+Everything is fused into a single `DailyPreparation` model (`models/daily_entry.py`)
+that also carries the synthesized **daily theme**, **power hours**, **caution
+periods**, **affirmation**, **mantra**, and **closing reflection**.
 
-# Preview a single day
-skskyforge preview --date 2026-01-15
+## Commands
+
+| Command | What it does |
+|---|---|
+| `skskyforge daily` | today's full report — `--format text\|markdown\|json`, `--output stdout\|file` (built for timers) |
+| `skskyforge preview --date YYYY-MM-DD` | one day, rendered richly in the terminal |
+| `skskyforge generate --year YYYY [--month M]` | a full year (or single month) → `json` / `pdf` / `excel` / `csv` |
+| `skskyforge install-daily [--time HH:MM]` | schedule the daily report (systemd timer → crontab fallback; `schtasks` on Windows) |
+| `skskyforge uninstall-daily` | remove the scheduled report |
+| `skskyforge profile create / list / show / delete` | manage birth-data profiles (geocoding via OpenStreetMap) |
+
+## Where it lives in SKStack v2
+
+skskyforge is a **Compute** capability — a self-contained generator/analyzer
+pipeline that turns birth data + a date into a daily report. It owns no shared
+infrastructure; its one ecosystem touch-point is the **scheduled `daily`
+command**, which makes it a natural producer for the platform's scheduling and
+alerting primitives and an agent-readable context source.
+
+```mermaid
+flowchart TD
+    OP["operator / agent"] -->|"skskyforge daily"| SKF
+    subgraph COMPUTE["Compute"]
+      subgraph SKF["**skskyforge** — Sovereign Alignment Calendar"]
+        CALC["calculators<br/>(moon · numerology · solar · planets · biorhythm)"]
+        ANA["analyzers<br/>(risk · wellness)"]
+        GEN["generator<br/>(generate_daily_entry → DailyPreparation)"]
+        EXP["exporters<br/>(pdf · excel · csv) + rich/markdown/json"]
+        WEB["web (optional)<br/>(FastAPI dashboard)"]
+      end
+      EPH["Swiss Ephemeris<br/>(pyswisseph / ephem)"]
+    end
+    SKF --> EPH
+    subgraph PLATFORM["Platform primitives it can feed"]
+      SCHED["skscheduler<br/>(its install-daily timer)"]
+      ALERT["sk-alert<br/>(deliver the morning report)"]
+      AGENT["skcapstone agents<br/>(daily alignment as context)"]
+    end
+    SKF -->|"install-daily timer"| SCHED
+    SKF -->|"morning report"| ALERT
+    SKF -->|"daily JSON/markdown"| AGENT
 ```
 
-## 📋 Requirements
+Per `SKILL.md`, the `daily` command is auto-discoverable by OpenClaw/skcapstone
+agents: an agent can invoke `skskyforge daily --format json` to pull the current
+day's alignment as context.
 
-- Python 3.10 or later
-- Swiss Ephemeris data files (downloaded automatically)
+## Documentation
 
-## 🏗️ Project Structure
+| Doc | Contents |
+|---|---|
+| **[Architecture](docs/ARCHITECTURE.md)** | the calculator → analyzer → generator → exporter flow, the scheduled-report path, source map, and where-it-lives (mermaids) |
+| **[CLI Quickstart](docs/CLI_QUICKSTART.md)** | get a calendar in under 5 minutes |
+| **[agent.md](agent.md)** | technical/agent specifications |
 
-```
-skskyforge/
-├── agent.md              # AI agent instructions
-├── prd.txt               # Product requirements
-├── requirements.txt      # Python dependencies
-├── pyproject.toml        # Project configuration
-├── config/
-│   ├── settings.yaml     # Global settings
-│   └── profiles/         # User profiles
-├── src/skskyforge/
-│   ├── cli.py            # Command-line interface
-│   ├── models/           # Data models
-│   ├── calculators/      # Domain calculators
-│   ├── analyzers/        # Risk & wellness analyzers
-│   ├── generators/       # Output generators
-│   └── data/             # Reference data
-└── tests/                # Test suite
-```
+## Requirements & license
 
-## 📖 Documentation
-
-- **[CLI Quickstart](docs/CLI_QUICKSTART.md)** - Get started in 5 minutes
-- **[agent.md](agent.md)** - Technical specifications for developers
-- **[prd.txt](prd.txt)** - Product requirements document
-
-## 🔧 Configuration
-
-### Environment Variables
-
-Copy `.env.example` to `.env` and configure:
-
-```bash
-cp .env.example .env
-```
-
-Key settings:
-- `SKSKYFORGE_OUTPUT_DIR` - Output directory for generated files
-- `SKSKYFORGE_DEFAULT_PROFILE` - Default profile name
-- `SWISSEPH_PATH` - Swiss Ephemeris data path
-
-### Settings File
-
-Edit `config/settings.yaml` to customize:
-- Output format preferences
-- Calculation parameters
-- Wellness recommendation rules
-- Spiritual library rotation
-
-## 🧪 Development
-
-### Running Tests
-
-```bash
-# Run all tests
-pytest
-
-# Run with coverage
-pytest --cov=skskyforge
-
-# Run specific test file
-pytest tests/test_calculators/test_numerology.py
-```
-
-### Code Quality
-
-```bash
-# Format code
-black src/ tests/
-
-# Lint code
-ruff src/ tests/
-
-# Type checking
-mypy src/
-```
-
-## 📄 Sample Output
-
-```
-╔══════════════════════════════════════════════════════════════════╗
-║  SKSKYFORGE DAILY SOVEREIGN ALIGNMENT                              ║
-║  Wednesday, January 15, 2026 (Day 15 of 365)                     ║
-╠══════════════════════════════════════════════════════════════════╣
-║  DAILY THEME: "Grounded Action with Emotional Wisdom"            ║
-║  OVERALL ENERGY: Moderate-High | RISK LEVEL: Low                 ║
-╚══════════════════════════════════════════════════════════════════╝
-
-🌙 MOON: Waxing Gibbous (78%) in Taurus
-🔢 NUMEROLOGY: Personal Day 5 (Universal Day 7)
-☀️ SOLAR TRANSIT: Sun in Capricorn, 10th House Focus
-🧬 HUMAN DESIGN: Gate 41 (Decrease) Active
-☯️ I CHING: Hexagram 41 - Decrease
-📊 BIORHYTHM: Physical +67% | Emotional +23% | Mental -12%
-⚠️ RISK ANALYSIS: Low (Score: 22/100)
-
-💫 TODAY'S AFFIRMATION:
-   "I build my dreams with patient, steady hands."
-```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please read the contributing guidelines before submitting pull requests.
-
-## 📜 License
-
-This project is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**.
-
-Copyright (C) 2025 **smilinTux**
-
-> **SK** = *staycuriousANDkeepsmilin* 🐧
-
-See [LICENSE](LICENSE) for the full license text.
-
-## 🙏 Acknowledgments
-
-- Swiss Ephemeris for astronomical calculations
-- The I Ching and Human Design communities
-- All wisdom traditions represented in the spiritual library
+- Python 3.10+; Swiss Ephemeris data (handled via `pyswisseph` / `ephem`).
+- Optional `[web]` extra adds a FastAPI dashboard; `[all]` adds geocoding + dev tools.
+- Licensed **AGPL-3.0-or-later**, © smilinTux.
 
 ---
 
-**SKSkyforge** - *Scientifically mapped. Spiritually grounded.*
+Part of the **[SKWorld](https://skworld.io)** sovereign ecosystem · *Scientifically
+mapped. Spiritually grounded.* · 🐧 smilinTux — staycuriousANDkeepsmilin
