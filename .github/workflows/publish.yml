@@ -40,13 +40,17 @@ jobs:
   publish-npm:
     needs: test
     runs-on: ubuntu-latest
+    # npm trusted publishing (OIDC): no stored token; provenance is signed.
+    permissions:
+      contents: read
+      id-token: write
     if: hashFiles('package.json') != ''
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
           registry-url: "https://registry.npmjs.org"
-      - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: npm 11.5.1 or newer (trusted publishing)
+        run: npm install -g npm@^11.5.1
+      - run: npm publish --provenance --access public
