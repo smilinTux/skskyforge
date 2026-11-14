@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - run: pip install -e ".[dev]"
+      - run: pip install -e ".[all]"
       - run: python -m pytest tests/ -v --tb=short
       - run: pip install black ruff && black --check src/ tests/ && ruff check src/
         if: matrix.python-version == '3.12'
