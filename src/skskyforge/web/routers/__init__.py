@@ -19,14 +19,14 @@ from __future__ import annotations
 import tempfile
 from datetime import date, timedelta
 from pathlib import Path
-from typing import List, Optional
+from typing import Optional
 
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
-from ...generators import generate_daily_entry
 from ...exporters import export_csv, export_excel, export_pdf
+from ...generators import generate_daily_entry
 from ...models import (
     BirthData,
     BirthTimeRange,
@@ -47,40 +47,41 @@ _PROFILES_DIR = Path.home() / ".skskyforge" / "profiles"
 # Request / response schemas
 # ===================================================================
 
+
 class LocationIn(BaseModel):
-    city: Optional[str] = None
-    latitude: Optional[float] = Field(None, ge=-90, le=90)
-    longitude: Optional[float] = Field(None, ge=-180, le=180)
+    city: str | None = None
+    latitude: float | None = Field(None, ge=-90, le=90)
+    longitude: float | None = Field(None, ge=-180, le=180)
     timezone: str = "UTC"
 
 
 class BirthDataIn(BaseModel):
     date: date
-    time: Optional[str] = None  # "HH:MM" string
+    time: str | None = None  # "HH:MM" string
     time_range: str = "unknown"
-    location: Optional[LocationIn] = None
+    location: LocationIn | None = None
 
 
 class ProfileIn(BaseModel):
     name: str
     birth_data: BirthDataIn
-    current_location: Optional[LocationIn] = None
-    human_design_type: Optional[str] = None
-    human_design_strategy: Optional[str] = None
-    human_design_authority: Optional[str] = None
+    current_location: LocationIn | None = None
+    human_design_type: str | None = None
+    human_design_strategy: str | None = None
+    human_design_authority: str | None = None
 
 
 class ProfileOut(BaseModel):
     name: str
     birth_date: date
-    birth_time: Optional[str] = None
+    birth_time: str | None = None
     time_range: str
-    location: Optional[LocationIn] = None
-    life_path_number: Optional[int] = None
-    human_design_type: Optional[str] = None
+    location: LocationIn | None = None
+    life_path_number: int | None = None
+    human_design_type: str | None = None
 
     @classmethod
-    def from_profile(cls, p: UserProfile) -> "ProfileOut":
+    def from_profile(cls, p: UserProfile) -> ProfileOut:
         loc = None
         if p.birth_data.location:
             loc = LocationIn(
@@ -121,7 +122,8 @@ class ExportRequest(BaseModel):
 # Helpers
 # ===================================================================
 
-def _build_location(loc: Optional[LocationIn]) -> Optional[Location]:
+
+def _build_location(loc: LocationIn | None) -> Location | None:
     if loc is None:
         return None
     return Location(
@@ -152,11 +154,15 @@ def _load_profile(name: str) -> UserProfile:
     try:
         return UserProfile.load_by_name(name, _PROFILES_DIR)
     except FileNotFoundError:
-        raise HTTPException(status_code=404, detail=f"Profile '{name}' not found")
+        raise HTTPException(
+            status_code=404, detail=f"Profile '{name}' not found"
+        ) from None
 
 
-def _generate_entries(profile: UserProfile, start: date, end: date) -> List[DailyPreparation]:
-    entries: List[DailyPreparation] = []
+def _generate_entries(
+    profile: UserProfile, start: date, end: date
+) -> list[DailyPreparation]:
+    entries: list[DailyPreparation] = []
     current = start
     while current <= end:
         entries.append(generate_daily_entry(current, profile))
@@ -167,6 +173,7 @@ def _generate_entries(profile: UserProfile, start: date, end: date) -> List[Dail
 # ===================================================================
 # Generation routes
 # ===================================================================
+
 
 @router.post("/generate/daily")
 def generate_daily(req: DailyRequest):
@@ -194,7 +201,8 @@ def generate_range(req: RangeRequest):
 # Profile CRUD
 # ===================================================================
 
-@router.get("/profiles", response_model=List[ProfileOut])
+
+@router.get("/profiles", response_model=list[ProfileOut])
 def list_profiles():
     """List all saved profiles."""
     _PROFILES_DIR.mkdir(parents=True, exist_ok=True)
@@ -219,7 +227,9 @@ def create_profile(req: ProfileIn):
     """Create a new profile."""
     filepath = _PROFILES_DIR / f"{req.name}.yaml"
     if filepath.exists():
-        raise HTTPException(status_code=409, detail=f"Profile '{req.name}' already exists")
+        raise HTTPException(
+            status_code=409, detail=f"Profile '{req.name}' already exists"
+        )
 
     profile = UserProfile(
         name=req.name,
@@ -248,8 +258,10 @@ def update_profile(name: str, req: ProfileIn):
         birth_data=_build_birth_data(req.birth_data),
         current_location=_build_location(req.current_location),
         human_design_type=req.human_design_type or existing.human_design_type,
-        human_design_strategy=req.human_design_strategy or existing.human_design_strategy,
-        human_design_authority=req.human_design_authority or existing.human_design_authority,
+        human_design_strategy=req.human_design_strategy
+        or existing.human_design_strategy,
+        human_design_authority=req.human_design_authority
+        or existing.human_design_authority,
         life_path_number=existing.life_path_number,
         metadata=existing.metadata,
     )
@@ -269,6 +281,7 @@ def delete_profile(name: str):
 # ===================================================================
 # Export routes
 # ===================================================================
+
 
 @router.post("/export/pdf")
 def export_to_pdf(req: ExportRequest):

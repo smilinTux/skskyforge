@@ -9,72 +9,71 @@ Licensed under AGPL-3.0. See LICENSE for details.
 """
 
 from datetime import date
-from typing import List
 
 from pydantic import BaseModel, Field
 
 from .domains import (
-    MoonData,
-    NumerologyData,
-    SolarTransitData,
+    BiorhythmData,
+    CautionPeriod,
+    EveningRitualData,
+    ExerciseRecommendation,
     HumanDesignData,
     IChingData,
-    BiorhythmData,
-    RiskAnalysisData,
-    ExerciseRecommendation,
-    NourishmentGuidance,
-    MorningRitualData,
-    MeditationPractice,
     JournalingPrompt,
-    SpiritualReading,
-    EveningRitualData,
+    MeditationPractice,
+    MoonData,
+    MorningRitualData,
+    NourishmentGuidance,
+    NumerologyData,
     PowerHour,
-    CautionPeriod,
+    RiskAnalysisData,
+    SolarTransitData,
+    SpiritualReading,
 )
 
 
 class DailyPreparation(BaseModel):
     """
     Complete daily sovereign alignment guide for optimal performance.
-    
+
     This is the core output model of SKSkyforge, containing all 10 domains
     of guidance synthesized into a comprehensive daily preparation system.
     """
-    
+
     # ==========================================================================
     # Header Information
     # ==========================================================================
     date: date
-    day_of_week: str              # "Monday", "Tuesday", etc.
-    day_of_year: int              # 1-366
-    
+    day_of_week: str  # "Monday", "Tuesday", etc.
+    day_of_year: int  # 1-366
+
     # ==========================================================================
     # 1. COSMIC ALIGNMENT
     # ==========================================================================
     moon: MoonData
     solar_transit: SolarTransitData
-    
+
     # ==========================================================================
     # 2. PERSONAL NUMBERS
     # ==========================================================================
     numerology: NumerologyData
-    
+
     # ==========================================================================
     # 3. DESIGN & WISDOM
     # ==========================================================================
     human_design: HumanDesignData
     i_ching: IChingData
-    
+
     # ==========================================================================
     # 4. BIORHYTHM CYCLES
     # ==========================================================================
     biorhythm: BiorhythmData
-    
+
     # ==========================================================================
     # 5. RISK AWARENESS
     # ==========================================================================
     risk_analysis: RiskAnalysisData
-    
+
     # ==========================================================================
     # 6. DAILY PRACTICES (Optimal Performance)
     # ==========================================================================
@@ -85,43 +84,43 @@ class DailyPreparation(BaseModel):
     journaling: JournalingPrompt
     spiritual_reading: SpiritualReading
     evening_ritual: EveningRitualData
-    
+
     # ==========================================================================
     # 7. SYNTHESIS
     # ==========================================================================
     daily_theme: str = ""
-    theme_keywords: List[str] = Field(default_factory=list)
-    power_hours: List[PowerHour] = Field(default_factory=list)
-    caution_periods: List[CautionPeriod] = Field(default_factory=list)
+    theme_keywords: list[str] = Field(default_factory=list)
+    power_hours: list[PowerHour] = Field(default_factory=list)
+    caution_periods: list[CautionPeriod] = Field(default_factory=list)
     affirmation: str = ""
     daily_mantra: str = ""
     closing_reflection: str = ""
     tomorrow_preview: str = ""
-    
+
     def get_overall_energy(self) -> str:
         """Get overall energy level from biorhythm data."""
         return self.biorhythm.overall_energy
-    
+
     def get_risk_level(self) -> str:
         """Get overall risk level."""
         return self.risk_analysis.overall_risk_level
-    
+
     def has_critical_biorhythm(self) -> bool:
         """Check if any biorhythm cycle is at critical point."""
         return (
-            self.biorhythm.physical_critical or
-            self.biorhythm.emotional_critical or
-            self.biorhythm.intellectual_critical
+            self.biorhythm.physical_critical
+            or self.biorhythm.emotional_critical
+            or self.biorhythm.intellectual_critical
         )
-    
+
     def has_moon_voc(self) -> bool:
         """Check if Moon is void of course."""
         return self.moon.moon_void_of_course
-    
+
     def to_summary_dict(self) -> dict:
         """
         Get a summary dictionary for display purposes.
-        
+
         Returns:
             dict: Key summary information.
         """

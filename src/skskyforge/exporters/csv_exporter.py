@@ -10,7 +10,6 @@ Licensed under AGPL-3.0.
 
 import csv
 from pathlib import Path
-from typing import List
 
 from ..models.daily_entry import DailyPreparation
 
@@ -69,7 +68,7 @@ def _entry_to_row(entry: DailyPreparation) -> dict:
 
 
 def export_csv(
-    entries: List[DailyPreparation],
+    entries: list[DailyPreparation],
     output_path: Path,
 ) -> Path:
     """

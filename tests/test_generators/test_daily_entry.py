@@ -69,8 +69,11 @@ class TestGenerateDailyEntry:
         result = generate_daily_entry(date(2026, 2, 10), sample_profile)
         assert result.human_design is not None
         assert result.human_design.type in (
-            "Generator", "Manifesting Generator",
-            "Projector", "Manifestor", "Reflector",
+            "Generator",
+            "Manifesting Generator",
+            "Projector",
+            "Manifestor",
+            "Reflector",
         )
 
     def test_i_ching_populated(self, sample_profile):
@@ -82,7 +85,10 @@ class TestGenerateDailyEntry:
         result = generate_daily_entry(date(2026, 2, 10), sample_profile)
         assert result.risk_analysis is not None
         assert result.risk_analysis.overall_risk_level in (
-            "Low", "Moderate", "Elevated", "High",
+            "Low",
+            "Moderate",
+            "Elevated",
+            "High",
         )
 
     def test_wellness_populated(self, sample_profile):
@@ -137,6 +143,7 @@ class TestGeneratorPerformance:
 
     def test_single_day_under_five_seconds(self, sample_profile):
         import time
+
         start = time.perf_counter()
         generate_daily_entry(date(2026, 4, 15), sample_profile)
         assert time.perf_counter() - start < 5.0
@@ -144,6 +151,7 @@ class TestGeneratorPerformance:
     def test_week_under_thirty_seconds(self, sample_profile):
         import time
         from datetime import timedelta
+
         start = time.perf_counter()
         d = date(2026, 1, 1)
         for _ in range(7):

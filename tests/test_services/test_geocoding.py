@@ -21,6 +21,7 @@ from skskyforge.services.geocoding import (
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def _make_location(lat=30.267153, lon=-97.743057, address="Austin, TX, USA"):
     """Return a mock geopy Location."""
     loc = MagicMock()
@@ -34,10 +35,13 @@ def _make_location(lat=30.267153, lon=-97.743057, address="Austin, TX, USA"):
 # geocode_city
 # ---------------------------------------------------------------------------
 
+
 class TestGeocodeCity:
     """Tests for the geocode_city function."""
 
-    @patch("skskyforge.services.geocoding.detect_timezone", return_value="America/Chicago")
+    @patch(
+        "skskyforge.services.geocoding.detect_timezone", return_value="America/Chicago"
+    )
     def test_successful_geocode(self, mock_tz):
         mock_loc = _make_location()
         mock_geolocator = MagicMock()
@@ -54,7 +58,9 @@ class TestGeocodeCity:
         assert result.timezone == "America/Chicago"
         assert result.display_name == "Austin, TX, USA"
 
-    @patch("skskyforge.services.geocoding.detect_timezone", return_value="America/Chicago")
+    @patch(
+        "skskyforge.services.geocoding.detect_timezone", return_value="America/Chicago"
+    )
     def test_coordinates_rounded(self, mock_tz):
         mock_loc = _make_location(lat=51.50735090000001, lon=-0.12775829999999)
         mock_geolocator = MagicMock()
@@ -100,13 +106,16 @@ class TestGeocodeCity:
             # Force reimport to trigger ImportError
             import importlib
             from skskyforge.services import geocoding
+
             importlib.reload(geocoding)
             result = geocoding.geocode_city("Austin")
             assert result is None
             # Restore
             importlib.reload(geocoding)
 
-    @patch("skskyforge.services.geocoding.detect_timezone", return_value="Europe/London")
+    @patch(
+        "skskyforge.services.geocoding.detect_timezone", return_value="Europe/London"
+    )
     def test_display_name_fallback(self, mock_tz):
         """If location.address is None, display_name falls back to city."""
         mock_loc = _make_location()
@@ -123,6 +132,7 @@ class TestGeocodeCity:
 # ---------------------------------------------------------------------------
 # detect_timezone
 # ---------------------------------------------------------------------------
+
 
 class TestDetectTimezone:
     """Tests for the detect_timezone function."""
@@ -149,6 +159,7 @@ class TestDetectTimezone:
 # ---------------------------------------------------------------------------
 # geocode_and_update_location
 # ---------------------------------------------------------------------------
+
 
 class TestGeocodeAndUpdateLocation:
     """Tests for the convenience tuple function."""

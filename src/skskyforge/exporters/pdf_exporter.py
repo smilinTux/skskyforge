@@ -7,9 +7,7 @@ Copyright (C) 2025 smilinTux
 Licensed under AGPL-3.0.
 """
 
-from datetime import date
 from pathlib import Path
-from typing import List
 
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
@@ -24,7 +22,6 @@ from reportlab.platypus import (
 )
 
 from ..models.daily_entry import DailyPreparation
-
 
 # Sovereign theme colours
 _BG = colors.HexColor("#0f0f1a")
@@ -90,25 +87,44 @@ def _build_day_section(entry: DailyPreparation) -> list:
 
     # Summary table
     summary_data = [
-        ["Moon", f"{entry.moon.phase} in {entry.moon.zodiac_sign} ({entry.moon.sign_element})"],
-        ["Sun", f"{entry.solar_transit.sun_sign} — House {entry.solar_transit.house_focus}: {entry.solar_transit.house_theme}"],
-        ["Numerology", f"Personal Day {entry.numerology.personal_day} — {entry.numerology.day_theme}"],
-        ["Biorhythm", f"P:{entry.biorhythm.physical:+.0f} E:{entry.biorhythm.emotional:+.0f} I:{entry.biorhythm.intellectual:+.0f} ({entry.biorhythm.overall_energy})"],
-        ["I Ching", f"Hexagram {entry.i_ching.hexagram_number}: {entry.i_ching.hexagram_name}"],
+        [
+            "Moon",
+            f"{entry.moon.phase} in {entry.moon.zodiac_sign} ({entry.moon.sign_element})",
+        ],
+        [
+            "Sun",
+            f"{entry.solar_transit.sun_sign} — House {entry.solar_transit.house_focus}: {entry.solar_transit.house_theme}",
+        ],
+        [
+            "Numerology",
+            f"Personal Day {entry.numerology.personal_day} — {entry.numerology.day_theme}",
+        ],
+        [
+            "Biorhythm",
+            f"P:{entry.biorhythm.physical:+.0f} E:{entry.biorhythm.emotional:+.0f} I:{entry.biorhythm.intellectual:+.0f} ({entry.biorhythm.overall_energy})",
+        ],
+        [
+            "I Ching",
+            f"Hexagram {entry.i_ching.hexagram_number}: {entry.i_ching.hexagram_name}",
+        ],
         ["Risk", entry.risk_analysis.overall_risk_level],
     ]
 
     tbl = Table(summary_data, colWidths=[25 * mm, 140 * mm])
-    tbl.setStyle(TableStyle([
-        ("FONTNAME", (0, 0), (0, -1), "Helvetica-Bold"),
-        ("FONTNAME", (1, 0), (1, -1), "Helvetica"),
-        ("FONTSIZE", (0, 0), (-1, -1), 9),
-        ("TEXTCOLOR", (0, 0), (0, -1), _CYAN),
-        ("TEXTCOLOR", (1, 0), (1, -1), _TEXT),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
-        ("TOPPADDING", (0, 0), (-1, -1), 3),
-        ("LINEBELOW", (0, -1), (-1, -1), 0.5, _MUTED),
-    ]))
+    tbl.setStyle(
+        TableStyle(
+            [
+                ("FONTNAME", (0, 0), (0, -1), "Helvetica-Bold"),
+                ("FONTNAME", (1, 0), (1, -1), "Helvetica"),
+                ("FONTSIZE", (0, 0), (-1, -1), 9),
+                ("TEXTCOLOR", (0, 0), (0, -1), _CYAN),
+                ("TEXTCOLOR", (1, 0), (1, -1), _TEXT),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+                ("TOPPADDING", (0, 0), (-1, -1), 3),
+                ("LINEBELOW", (0, -1), (-1, -1), 0.5, _MUTED),
+            ]
+        )
+    )
     elements.append(tbl)
     elements.append(Spacer(1, 3 * mm))
 
@@ -142,7 +158,7 @@ def _build_day_section(entry: DailyPreparation) -> list:
 
 
 def export_pdf(
-    entries: List[DailyPreparation],
+    entries: list[DailyPreparation],
     output_path: Path,
 ) -> Path:
     """
