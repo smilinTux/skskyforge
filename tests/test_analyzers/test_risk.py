@@ -199,9 +199,12 @@ class TestRiskScoring:
         result = calculate_risk_analysis(
             _make_moon(voc=True),
             _make_biorhythm(
-                physical=-80, physical_critical=True,
-                emotional=-80, emotional_critical=True,
-                intellectual=-80, intellectual_critical=True,
+                physical=-80,
+                physical_critical=True,
+                emotional=-80,
+                emotional_critical=True,
+                intellectual=-80,
+                intellectual_critical=True,
             ),
             _make_numerology(personal_day=7),
         )
@@ -213,9 +216,12 @@ class TestRiskScoring:
         result = calculate_risk_analysis(
             _make_moon(voc=True),
             _make_biorhythm(
-                physical=-80, physical_critical=True,
-                emotional=-80, emotional_critical=True,
-                intellectual=-80, intellectual_critical=True,
+                physical=-80,
+                physical_critical=True,
+                emotional=-80,
+                emotional_critical=True,
+                intellectual=-80,
+                intellectual_critical=True,
             ),
             _make_numerology(personal_day=9),
         )
@@ -224,7 +230,12 @@ class TestRiskScoring:
 
     def test_risk_level_categories(self):
         """Verify all four risk level categories exist."""
-        assert set(GROUNDING_TECHNIQUES.keys()) == {"Low", "Moderate", "Elevated", "High"}
+        assert set(GROUNDING_TECHNIQUES.keys()) == {
+            "Low",
+            "Moderate",
+            "Elevated",
+            "High",
+        }
 
 
 class TestProtectivePractices:
@@ -237,15 +248,19 @@ class TestProtectivePractices:
             _make_numerology(personal_day=7),
         )
         # spiritual risk should be >= 3, triggering spiritual practices
-        assert any("meditation" in p.lower() or "grounding" in p.lower()
-                    for p in result.protective_practices)
+        assert any(
+            "meditation" in p.lower() or "grounding" in p.lower()
+            for p in result.protective_practices
+        )
 
     def test_max_four_protective_practices(self):
         result = calculate_risk_analysis(
             _make_moon(voc=True),
             _make_biorhythm(
-                physical=-80, physical_critical=True,
-                emotional=-80, emotional_critical=True,
+                physical=-80,
+                physical_critical=True,
+                emotional=-80,
+                emotional_critical=True,
             ),
             _make_numerology(),
         )
@@ -257,6 +272,7 @@ class TestRiskPerformance:
 
     def test_risk_calculation_under_one_second(self):
         import time
+
         moon = _make_moon()
         bio = _make_biorhythm()
         num = _make_numerology()

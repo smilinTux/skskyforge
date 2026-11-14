@@ -11,16 +11,20 @@ This file is part of SKSkyforge.
 Licensed under AGPL-3.0. See LICENSE for details.
 """
 
-from datetime import date, datetime
-from typing import Dict, List, Tuple
-
-from .moon import ZODIAC_SIGNS, get_zodiac_sign_from_longitude
-
+from datetime import date
 
 # Planet display names keyed by Swiss Ephemeris constant name
 PLANET_NAMES = [
-    "Sun", "Moon", "Mercury", "Venus", "Mars",
-    "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto",
+    "Sun",
+    "Moon",
+    "Mercury",
+    "Venus",
+    "Mars",
+    "Jupiter",
+    "Saturn",
+    "Uranus",
+    "Neptune",
+    "Pluto",
 ]
 
 # Major aspects: (name, angle, orb_degrees, symbol)
@@ -44,14 +48,70 @@ ASPECT_QUALITIES = {
 # Human Design gate mapping: planet longitude -> gate number
 # Each gate spans 360/64 = 5.625 degrees of ecliptic longitude
 HD_GATE_ORDER = [
-    41, 19, 13, 49, 30, 55, 37, 63,  # 0-45 degrees
-    22, 36, 25, 17, 21, 51, 42, 3,   # 45-90
-    27, 24, 2, 23, 8, 20, 16, 35,    # 90-135
-    45, 12, 15, 52, 39, 53, 62, 56,  # 135-180
-    31, 33, 7, 4, 29, 59, 40, 64,    # 180-225
-    47, 6, 46, 18, 48, 57, 32, 50,   # 225-270
-    28, 44, 1, 43, 14, 34, 9, 5,     # 270-315
-    26, 11, 10, 58, 38, 54, 61, 60,  # 315-360
+    41,
+    19,
+    13,
+    49,
+    30,
+    55,
+    37,
+    63,  # 0-45 degrees
+    22,
+    36,
+    25,
+    17,
+    21,
+    51,
+    42,
+    3,  # 45-90
+    27,
+    24,
+    2,
+    23,
+    8,
+    20,
+    16,
+    35,  # 90-135
+    45,
+    12,
+    15,
+    52,
+    39,
+    53,
+    62,
+    56,  # 135-180
+    31,
+    33,
+    7,
+    4,
+    29,
+    59,
+    40,
+    64,  # 180-225
+    47,
+    6,
+    46,
+    18,
+    48,
+    57,
+    32,
+    50,  # 225-270
+    28,
+    44,
+    1,
+    43,
+    14,
+    34,
+    9,
+    5,  # 270-315
+    26,
+    11,
+    10,
+    58,
+    38,
+    54,
+    61,
+    60,  # 315-360
 ]
 
 
@@ -61,7 +121,7 @@ def _angular_distance(lon1: float, lon2: float) -> float:
     return min(diff, 360 - diff)
 
 
-def longitude_to_hd_gate(longitude: float) -> Tuple[int, int]:
+def longitude_to_hd_gate(longitude: float) -> tuple[int, int]:
     """
     Convert ecliptic longitude to Human Design gate and line.
 
@@ -76,14 +136,14 @@ def longitude_to_hd_gate(longitude: float) -> Tuple[int, int]:
     gate_number = HD_GATE_ORDER[gate_index]
 
     # Each line spans 5.625/6 = 0.9375 degrees within the gate
-    position_in_gate = (longitude % 5.625)
+    position_in_gate = longitude % 5.625
     line = int(position_in_gate / 0.9375) + 1
     line = min(line, 6)
 
     return gate_number, line
 
 
-def calculate_planetary_positions(target_date: date) -> Dict[str, float]:
+def calculate_planetary_positions(target_date: date) -> dict[str, float]:
     """
     Calculate ecliptic longitudes for all major planets.
 
@@ -100,9 +160,9 @@ def calculate_planetary_positions(target_date: date) -> Dict[str, float]:
 
 
 def calculate_aspects(
-    positions: Dict[str, float],
-    aspects: List[Tuple[str, int, int, str]] | None = None,
-) -> List[str]:
+    positions: dict[str, float],
+    aspects: list[tuple[str, int, int, str]] | None = None,
+) -> list[str]:
     """
     Calculate major aspects between planets.
 
@@ -118,10 +178,10 @@ def calculate_aspects(
 
     aspect_defs = aspects or MAJOR_ASPECTS
     planet_list = list(positions.items())
-    result: List[str] = []
+    result: list[str] = []
 
     for i, (name_a, lon_a) in enumerate(planet_list):
-        for name_b, lon_b in planet_list[i + 1:]:
+        for name_b, lon_b in planet_list[i + 1 :]:
             dist = _angular_distance(lon_a, lon_b)
             for aspect_name, angle, orb, symbol in aspect_defs:
                 if abs(dist - angle) <= orb:
@@ -135,8 +195,8 @@ def calculate_aspects(
 
 
 def calculate_hd_gates(
-    positions: Dict[str, float],
-) -> List[Tuple[str, int, int]]:
+    positions: dict[str, float],
+) -> list[tuple[str, int, int]]:
     """
     Calculate Human Design gate activations from planetary positions.
 
@@ -158,7 +218,7 @@ def calculate_hd_gates(
 # ---------------------------------------------------------------------------
 
 # Map planet names to swisseph constants
-_SWE_PLANETS: List[Tuple[str, int]] = []
+_SWE_PLANETS: list[tuple[str, int]] = []
 
 try:
     import swisseph as swe
@@ -176,12 +236,15 @@ try:
         ("Pluto", swe.PLUTO),
     ]
 
-    def _positions_swe(target_date: date) -> Dict[str, float]:
+    def _positions_swe(target_date: date) -> dict[str, float]:
         """Calculate all planetary positions using Swiss Ephemeris."""
         jd = swe.julday(
-            target_date.year, target_date.month, target_date.day, 12.0,
+            target_date.year,
+            target_date.month,
+            target_date.day,
+            12.0,
         )
-        positions: Dict[str, float] = {}
+        positions: dict[str, float] = {}
         for name, planet_id in _SWE_PLANETS:
             pos = swe.calc_ut(jd, planet_id)[0]
             positions[name] = pos[0]
@@ -190,9 +253,11 @@ try:
     _calculate_positions_impl = _positions_swe
 
 except ImportError:
-    def _positions_fallback(target_date: date) -> Dict[str, float]:
+
+    def _positions_fallback(target_date: date) -> dict[str, float]:
         """Fallback: only Sun position via simple formula."""
         from .solar import _sun_longitude_simple
+
         return {"Sun": _sun_longitude_simple(target_date)}
 
     _calculate_positions_impl = _positions_fallback

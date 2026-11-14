@@ -9,14 +9,12 @@ Licensed under AGPL-3.0.
 """
 
 from pathlib import Path
-from typing import List
 
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
 from ..models.daily_entry import DailyPreparation
-
 
 # Sovereign theme colours
 _HEADER_FILL = PatternFill(start_color="1A1A35", end_color="1A1A35", fill_type="solid")
@@ -46,14 +44,22 @@ def _auto_width(ws) -> None:
         ws.column_dimensions[letter].width = min(max_len + 3, 40)
 
 
-def _write_overview(wb: Workbook, entries: List[DailyPreparation]) -> None:
+def _write_overview(wb: Workbook, entries: list[DailyPreparation]) -> None:
     """Write the Overview sheet with daily summaries."""
     ws = wb.active
     ws.title = "Overview"
 
     headers = [
-        "Date", "Day", "Theme", "Moon Phase", "Moon Sign",
-        "Sun Sign", "Personal Day", "Energy", "Risk", "Affirmation",
+        "Date",
+        "Day",
+        "Theme",
+        "Moon Phase",
+        "Moon Sign",
+        "Sun Sign",
+        "Personal Day",
+        "Energy",
+        "Risk",
+        "Affirmation",
     ]
     _apply_header(ws, headers)
 
@@ -72,13 +78,19 @@ def _write_overview(wb: Workbook, entries: List[DailyPreparation]) -> None:
     _auto_width(ws)
 
 
-def _write_moon(wb: Workbook, entries: List[DailyPreparation]) -> None:
+def _write_moon(wb: Workbook, entries: list[DailyPreparation]) -> None:
     """Write Moon sheet with phase and sign details."""
     ws = wb.create_sheet("Moon")
 
     headers = [
-        "Date", "Phase", "Illumination %", "Sign", "Element",
-        "Modality", "VOC", "Energy Theme",
+        "Date",
+        "Phase",
+        "Illumination %",
+        "Sign",
+        "Element",
+        "Modality",
+        "VOC",
+        "Energy Theme",
     ]
     _apply_header(ws, headers)
 
@@ -96,13 +108,19 @@ def _write_moon(wb: Workbook, entries: List[DailyPreparation]) -> None:
     _auto_width(ws)
 
 
-def _write_numerology(wb: Workbook, entries: List[DailyPreparation]) -> None:
+def _write_numerology(wb: Workbook, entries: list[DailyPreparation]) -> None:
     """Write Numerology sheet."""
     ws = wb.create_sheet("Numerology")
 
     headers = [
-        "Date", "Life Path", "Personal Year", "Personal Month",
-        "Personal Day", "Universal Day", "Theme", "Energy Quality",
+        "Date",
+        "Life Path",
+        "Personal Year",
+        "Personal Month",
+        "Personal Day",
+        "Universal Day",
+        "Theme",
+        "Energy Quality",
     ]
     _apply_header(ws, headers)
 
@@ -120,12 +138,16 @@ def _write_numerology(wb: Workbook, entries: List[DailyPreparation]) -> None:
     _auto_width(ws)
 
 
-def _write_biorhythm(wb: Workbook, entries: List[DailyPreparation]) -> None:
+def _write_biorhythm(wb: Workbook, entries: list[DailyPreparation]) -> None:
     """Write Biorhythm sheet."""
     ws = wb.create_sheet("Biorhythm")
 
     headers = [
-        "Date", "Physical", "Emotional", "Intellectual", "Overall Energy",
+        "Date",
+        "Physical",
+        "Emotional",
+        "Intellectual",
+        "Overall Energy",
     ]
     _apply_header(ws, headers)
 
@@ -141,7 +163,7 @@ def _write_biorhythm(wb: Workbook, entries: List[DailyPreparation]) -> None:
 
 
 def export_excel(
-    entries: List[DailyPreparation],
+    entries: list[DailyPreparation],
     output_path: Path,
 ) -> Path:
     """

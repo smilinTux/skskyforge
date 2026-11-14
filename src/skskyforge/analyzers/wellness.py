@@ -11,19 +11,16 @@ This file is part of SKSkyforge.
 Licensed under AGPL-3.0. See LICENSE for details.
 """
 
-from typing import List
-
 from ..models.domains import (
-    MoonData,
     BiorhythmData,
-    ExerciseRecommendation,
-    NourishmentGuidance,
-    MorningRitualData,
-    MeditationPractice,
-    JournalingPrompt,
     EveningRitualData,
+    ExerciseRecommendation,
+    JournalingPrompt,
+    MeditationPractice,
+    MoonData,
+    MorningRitualData,
+    NourishmentGuidance,
 )
-
 
 # Element-based exercise activities
 ELEMENT_EXERCISES = {
@@ -47,7 +44,13 @@ ELEMENT_NOURISHMENT = {
     },
     "Earth": {
         "focus": "Grounding and nourishing",
-        "emphasized": ["Root vegetables", "Whole grains", "Legumes", "Nuts", "Mushrooms"],
+        "emphasized": [
+            "Root vegetables",
+            "Whole grains",
+            "Legumes",
+            "Nuts",
+            "Mushrooms",
+        ],
         "minimize": ["Processed foods", "Excessive sugar", "Light/airy foods"],
         "hydration": "Warm herbal teas, room temperature water",
         "breakfast": "Warm oatmeal with nuts and seeds",
@@ -84,17 +87,17 @@ def generate_exercise_recommendation(
 ) -> ExerciseRecommendation:
     """
     Generate exercise recommendations based on biorhythm and moon.
-    
+
     Args:
         biorhythm_data: Biorhythm cycle data.
         moon_data: Moon phase and sign data.
-    
+
     Returns:
         ExerciseRecommendation: Personalized exercise guidance.
     """
     physical = biorhythm_data.physical
     element = moon_data.sign_element
-    
+
     # Handle critical day first
     if biorhythm_data.physical_critical:
         return ExerciseRecommendation(
@@ -106,7 +109,7 @@ def generate_exercise_recommendation(
             avoid_today=["High intensity", "Heavy lifting", "Competitive sports"],
             rationale="Physical biorhythm at critical point - prioritize recovery",
         )
-    
+
     # Determine base recommendations from physical level
     if physical > 70:
         exercise_type = "High Intensity Training"
@@ -133,10 +136,10 @@ def generate_exercise_recommendation(
         intensity = "Low"
         duration = 20
         optimal_time = "When energy feels best"
-    
+
     # Get element-specific activities
     activities = ELEMENT_EXERCISES.get(element, ELEMENT_EXERCISES["Earth"])[:3]
-    
+
     # Determine what to avoid
     avoid = []
     if physical < -30:
@@ -147,9 +150,9 @@ def generate_exercise_recommendation(
         avoid.append("Complex new routines")
     if not avoid:
         avoid = ["Overexertion beyond energy levels"]
-    
+
     rationale = f"Physical biorhythm at {physical:.0f}%, {element} moon energy favors {element.lower()}-aligned activities"
-    
+
     return ExerciseRecommendation(
         exercise_type=exercise_type,
         intensity=intensity,
@@ -167,17 +170,17 @@ def generate_nourishment_guidance(
 ) -> NourishmentGuidance:
     """
     Generate nourishment guidance based on moon element and biorhythm.
-    
+
     Args:
         moon_data: Moon phase and sign data.
         biorhythm_data: Biorhythm cycle data.
-    
+
     Returns:
         NourishmentGuidance: Personalized dietary guidance.
     """
     element = moon_data.sign_element
     guidance = ELEMENT_NOURISHMENT.get(element, ELEMENT_NOURISHMENT["Earth"])
-    
+
     # Adjust meal timing based on biorhythm
     if biorhythm_data.physical < 0:
         meal_timing = "Earlier, lighter dinner recommended (by 6:30 PM)"
@@ -185,7 +188,7 @@ def generate_nourishment_guidance(
         meal_timing = "Normal timing with adequate portions for activity"
     else:
         meal_timing = "Standard timing, moderate portions"
-    
+
     return NourishmentGuidance(
         element_focus=guidance["focus"],
         foods_emphasized=guidance["emphasized"],
@@ -205,16 +208,16 @@ def generate_morning_ritual(
 ) -> MorningRitualData:
     """
     Generate morning ritual recommendations.
-    
+
     Args:
         moon_data: Moon phase and sign data.
         biorhythm_data: Biorhythm cycle data.
-    
+
     Returns:
         MorningRitualData: Morning ritual guidance.
     """
     element = moon_data.sign_element
-    
+
     # Wake time based on overall energy
     if biorhythm_data.overall_energy == "High":
         wake_time = "6:00 AM - Rise with energy"
@@ -222,7 +225,7 @@ def generate_morning_ritual(
         wake_time = "7:00 AM - Gentle awakening"
     else:
         wake_time = "6:30 AM - Balanced start"
-    
+
     # Breathwork by element
     breathwork_map = {
         "Fire": "Breath of Fire (Kapalabhati) - 3 minutes",
@@ -231,7 +234,7 @@ def generate_morning_ritual(
         "Water": "Ocean breath (Ujjayi) - 5 minutes",
     }
     breathwork = breathwork_map.get(element, "Deep belly breathing - 5 minutes")
-    
+
     # Movement by element
     movement_map = {
         "Fire": "Sun salutations - energizing flow",
@@ -240,10 +243,10 @@ def generate_morning_ritual(
         "Water": "Gentle flowing yoga - fluid motion",
     }
     movement = movement_map.get(element, "Gentle stretching - 10 minutes")
-    
+
     # Intention based on moon sign theme
     intention = f"I embrace {moon_data.energy_theme.lower()} today"
-    
+
     return MorningRitualData(
         wake_time_suggestion=wake_time,
         intention_setting=intention,
@@ -259,16 +262,16 @@ def generate_meditation_practice(
 ) -> MeditationPractice:
     """
     Generate meditation practice recommendations.
-    
+
     Args:
         moon_data: Moon phase and sign data.
         biorhythm_data: Biorhythm cycle data.
-    
+
     Returns:
         MeditationPractice: Meditation guidance.
     """
     element = moon_data.sign_element
-    
+
     # Technique by element
     technique_map = {
         "Fire": "Candle gazing (Trataka)",
@@ -277,7 +280,7 @@ def generate_meditation_practice(
         "Water": "Loving-kindness meditation",
     }
     technique = technique_map.get(element, "Breath awareness")
-    
+
     # Duration based on intellectual biorhythm
     if biorhythm_data.intellectual > 50:
         duration = 25
@@ -288,7 +291,7 @@ def generate_meditation_practice(
     else:
         duration = 15
         optimal_time = "Evening (shorter, gentler)"
-    
+
     # Mantra by element
     mantra_map = {
         "Fire": "I am powerful and radiant",
@@ -297,10 +300,10 @@ def generate_meditation_practice(
         "Water": "I flow with life's currents",
     }
     mantra = mantra_map.get(element)
-    
+
     # Focus theme from moon
     focus = moon_data.energy_theme
-    
+
     return MeditationPractice(
         technique=technique,
         duration_minutes=duration,
@@ -316,10 +319,10 @@ def generate_evening_ritual(
 ) -> EveningRitualData:
     """
     Generate evening ritual recommendations.
-    
+
     Args:
         biorhythm_data: Biorhythm cycle data.
-    
+
     Returns:
         EveningRitualData: Evening ritual guidance.
     """
@@ -336,7 +339,7 @@ def generate_evening_ritual(
         wind_down = "8:30 PM"
         screen_off = "9:00 PM"
         sleep_time = "10:00 PM"
-    
+
     return EveningRitualData(
         wind_down_time=wind_down,
         screen_cutoff=screen_off,
@@ -352,16 +355,16 @@ def generate_journaling_prompts(
 ) -> JournalingPrompt:
     """
     Generate journaling prompts aligned with daily energies.
-    
+
     Args:
         moon_data: Moon phase and sign data.
         biorhythm_data: Biorhythm cycle data.
-    
+
     Returns:
         JournalingPrompt: Daily journaling prompts.
     """
     element = moon_data.sign_element
-    
+
     # Morning prompts by element
     morning_prompts = {
         "Fire": "What bold action can I take today?",
@@ -369,7 +372,7 @@ def generate_journaling_prompts(
         "Air": "What new perspective can I explore today?",
         "Water": "What emotional truth wants to be acknowledged?",
     }
-    
+
     # Evening prompts by element
     evening_prompts = {
         "Fire": "Where did I express my authentic power today?",
@@ -377,7 +380,7 @@ def generate_journaling_prompts(
         "Air": "What new idea or connection emerged today?",
         "Water": "What feelings flowed through me today?",
     }
-    
+
     # Deep inquiry based on moon sign
     sign_inquiries = {
         "Aries": "Where am I holding back from starting something new?",
@@ -393,7 +396,7 @@ def generate_journaling_prompts(
         "Aquarius": "How can I contribute to something larger than myself?",
         "Pisces": "What does my intuition want me to know?",
     }
-    
+
     # Gratitude focus based on biorhythm
     if biorhythm_data.overall_energy == "Low":
         gratitude = "Simple blessings and basic comforts"
@@ -401,10 +404,12 @@ def generate_journaling_prompts(
         gratitude = "Opportunities and energy for action"
     else:
         gratitude = "Balance and present moment awareness"
-    
+
     return JournalingPrompt(
         morning_prompt=morning_prompts.get(element, "What is my intention for today?"),
         evening_prompt=evening_prompts.get(element, "What am I grateful for today?"),
-        theme_exploration=sign_inquiries.get(moon_data.zodiac_sign, "What wants to emerge today?"),
+        theme_exploration=sign_inquiries.get(
+            moon_data.zodiac_sign, "What wants to emerge today?"
+        ),
         gratitude_focus=gratitude,
     )

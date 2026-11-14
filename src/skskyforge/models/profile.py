@@ -10,7 +10,6 @@ Licensed under AGPL-3.0. See LICENSE for details.
 
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, Optional
 
 import yaml
 from pydantic import BaseModel, Field
@@ -20,15 +19,16 @@ from .birth_data import BirthData, Location
 
 class ProfileMetadata(BaseModel):
     """Metadata about a user profile."""
-    created_at: Optional[datetime] = None
-    updated_at: Optional[datetime] = None
-    notes: Optional[str] = None
+
+    created_at: datetime | None = None
+    updated_at: datetime | None = None
+    notes: str | None = None
 
 
 class UserProfile(BaseModel):
     """
     Complete user profile with birth data and computed values.
-    
+
     Attributes:
         name: Unique profile identifier
         birth_data: User's birth information
@@ -40,92 +40,94 @@ class UserProfile(BaseModel):
         personal_year_cache: Cached personal year numbers by year
         metadata: Profile metadata (creation date, notes, etc.)
     """
+
     name: str
     birth_data: BirthData
-    current_location: Optional[Location] = None
-    
+    current_location: Location | None = None
+
     # Auto-calculated fields
-    life_path_number: Optional[int] = None
-    human_design_type: Optional[str] = None
-    human_design_strategy: Optional[str] = None
-    human_design_authority: Optional[str] = None
-    
+    life_path_number: int | None = None
+    human_design_type: str | None = None
+    human_design_strategy: str | None = None
+    human_design_authority: str | None = None
+
     # Cache for computed values
-    personal_year_cache: Dict[int, int] = Field(default_factory=dict)
-    
+    personal_year_cache: dict[int, int] = Field(default_factory=dict)
+
     # Metadata
     metadata: ProfileMetadata = Field(default_factory=ProfileMetadata)
-    
+
     def save(self, profiles_dir: Path) -> None:
         """
         Save profile to YAML file.
-        
+
         Args:
             profiles_dir: Directory to save profile in.
         """
         profiles_dir.mkdir(parents=True, exist_ok=True)
         filepath = profiles_dir / f"{self.name}.yaml"
-        
+
         # Update metadata
         now = datetime.now()
         if self.metadata.created_at is None:
             self.metadata.created_at = now
         self.metadata.updated_at = now
-        
+
         # Convert to dict and save
-        data = self.model_dump(mode='json')
-        with open(filepath, 'w') as f:
+        data = self.model_dump(mode="json")
+        with open(filepath, "w") as f:
             yaml.dump(data, f, default_flow_style=False, sort_keys=False)
-    
+
     @classmethod
     def load(cls, filepath: Path) -> "UserProfile":
         """
         Load profile from YAML file.
-        
+
         Args:
             filepath: Path to the profile YAML file.
-            
+
         Returns:
             UserProfile: Loaded profile instance.
-            
+
         Raises:
             FileNotFoundError: If profile file doesn't exist.
         """
         if not filepath.exists():
             raise FileNotFoundError(f"Profile not found: {filepath}")
-        
-        with open(filepath, 'r') as f:
+
+        with open(filepath) as f:
             data = yaml.safe_load(f)
-        
+
         return cls.model_validate(data)
-    
+
     @classmethod
     def load_by_name(cls, name: str, profiles_dir: Path) -> "UserProfile":
         """
         Load profile by name from profiles directory.
-        
+
         Args:
             name: Profile name.
             profiles_dir: Directory containing profile files.
-            
+
         Returns:
             UserProfile: Loaded profile instance.
         """
         filepath = profiles_dir / f"{name}.yaml"
         return cls.load(filepath)
-    
+
     def get_personal_year(self, year: int) -> int:
         """
         Get personal year number, using cache if available.
-        
+
         Args:
             year: Target year.
-            
+
         Returns:
             int: Personal year number (1-9 or master number).
         """
         if year not in self.personal_year_cache:
             from ..calculators.numerology import calculate_personal_year
+
             self.personal_year_cache[year] = calculate_personal_year(
                 self.birth_data.date, year
             )

@@ -14,16 +14,15 @@ __version__ = "1.0.0"
 __author__ = "smilinTux"
 __license__ = "AGPL-3.0"
 
+from .generators import generate_daily_entry
 from .models import (
     BirthData,
     BirthTimeRange,
-    Location,
-    UserProfile,
     CalendarRequest,
     DailyPreparation,
+    Location,
+    UserProfile,
 )
-
-from .generators import generate_daily_entry
 
 __all__ = [
     "__version__",
