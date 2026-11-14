@@ -15,7 +15,6 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass
-from typing import Optional, Tuple
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +30,7 @@ class GeocodingResult:
     display_name: str
 
 
-def geocode_city(city: str) -> Optional[GeocodingResult]:
+def geocode_city(city: str) -> GeocodingResult | None:
     """Geocode a city name to coordinates and timezone.
 
     Uses the Nominatim geocoder (OpenStreetMap) via geopy, then
@@ -76,7 +75,7 @@ def geocode_city(city: str) -> Optional[GeocodingResult]:
         return None
 
 
-def detect_timezone(latitude: float, longitude: float) -> Optional[str]:
+def detect_timezone(latitude: float, longitude: float) -> str | None:
     """Detect IANA timezone from geographic coordinates.
 
     Args:
@@ -100,7 +99,7 @@ def detect_timezone(latitude: float, longitude: float) -> Optional[str]:
         return None
 
 
-def geocode_and_update_location(city: str) -> Tuple[Optional[float], Optional[float], str]:
+def geocode_and_update_location(city: str) -> tuple[float | None, float | None, str]:
     """Convenience function returning (lat, lon, timezone) for a city.
 
     Suitable for direct use in CLI profile creation flows.

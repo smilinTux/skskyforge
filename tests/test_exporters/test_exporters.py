@@ -78,6 +78,7 @@ class TestExcelExporter:
 
     def test_has_overview_sheet(self, sample_entries, tmp_path):
         from openpyxl import load_workbook
+
         out = tmp_path / "test.xlsx"
         export_excel(sample_entries, out)
         wb = load_workbook(out)
@@ -85,6 +86,7 @@ class TestExcelExporter:
 
     def test_overview_row_count(self, sample_entries, tmp_path):
         from openpyxl import load_workbook
+
         out = tmp_path / "test.xlsx"
         export_excel(sample_entries, out)
         wb = load_workbook(out)

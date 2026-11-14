@@ -12,44 +12,41 @@ Licensed under AGPL-3.0. See LICENSE for details.
 """
 
 from datetime import date
-from typing import List
 
-from ..models import (
-    UserProfile,
-    DailyPreparation,
-    MoonData,
-    NumerologyData,
-    SolarTransitData,
-    HumanDesignData,
-    GateData,
-    IChingData,
-    BiorhythmData,
-    RiskAnalysisData,
-    PowerHour,
-    CautionPeriod,
-    SpiritualReading,
-)
-from ..calculators import (
-    calculate_moon_data,
-    calculate_numerology_for_day,
-    calculate_biorhythm_for_day,
-    calculate_life_path,
-    calculate_sun_position,
-    get_sun_sign,
-    calculate_house_focus,
-    calculate_planetary_positions,
-    calculate_aspects,
-    calculate_hd_gates,
-    HOUSE_THEMES,
-)
 from ..analyzers import (
     calculate_risk_analysis,
-    generate_exercise_recommendation,
-    generate_nourishment_guidance,
-    generate_morning_ritual,
-    generate_meditation_practice,
     generate_evening_ritual,
+    generate_exercise_recommendation,
     generate_journaling_prompts,
+    generate_meditation_practice,
+    generate_morning_ritual,
+    generate_nourishment_guidance,
+)
+from ..calculators import (
+    HOUSE_THEMES,
+    calculate_aspects,
+    calculate_biorhythm_for_day,
+    calculate_hd_gates,
+    calculate_house_focus,
+    calculate_life_path,
+    calculate_moon_data,
+    calculate_numerology_for_day,
+    calculate_planetary_positions,
+    get_sun_sign,
+)
+from ..models import (
+    BiorhythmData,
+    CautionPeriod,
+    DailyPreparation,
+    GateData,
+    HumanDesignData,
+    IChingData,
+    MoonData,
+    NumerologyData,
+    PowerHour,
+    SolarTransitData,
+    SpiritualReading,
+    UserProfile,
 )
 
 
@@ -90,20 +87,20 @@ def generate_solar_transit(target_date: date, profile: UserProfile) -> SolarTran
 def generate_human_design(target_date: date, profile: UserProfile) -> HumanDesignData:
     """
     Generate Human Design data for a day.
-    
+
     Simplified version - full implementation would calculate
     actual gate transits from planetary positions.
-    
+
     Args:
         target_date: Date to calculate for.
         profile: User profile with birth data.
-    
+
     Returns:
         HumanDesignData: Human Design information.
     """
     # Default HD type if not calculated (would be from birth chart)
     hd_type = profile.human_design_type or "Generator"
-    
+
     # Strategy and authority by type
     strategies = {
         "Generator": "Wait to respond",
@@ -112,7 +109,7 @@ def generate_human_design(target_date: date, profile: UserProfile) -> HumanDesig
         "Manifestor": "Inform before acting",
         "Reflector": "Wait a lunar cycle",
     }
-    
+
     authorities = {
         "Generator": "Sacral",
         "Manifesting Generator": "Sacral",
@@ -120,7 +117,7 @@ def generate_human_design(target_date: date, profile: UserProfile) -> HumanDesig
         "Manifestor": "Emotional or Splenic",
         "Reflector": "Lunar",
     }
-    
+
     signatures = {
         "Generator": "Satisfaction",
         "Manifesting Generator": "Satisfaction",
@@ -128,7 +125,7 @@ def generate_human_design(target_date: date, profile: UserProfile) -> HumanDesig
         "Manifestor": "Peace",
         "Reflector": "Surprise",
     }
-    
+
     not_self = {
         "Generator": "Watch for frustration if forcing actions",
         "Manifesting Generator": "Watch for frustration and anger if not responding",
@@ -136,7 +133,7 @@ def generate_human_design(target_date: date, profile: UserProfile) -> HumanDesig
         "Manifestor": "Watch for anger if meeting resistance",
         "Reflector": "Watch for disappointment if rushing decisions",
     }
-    
+
     # Calculate gate activations from real planetary positions
     positions = calculate_planetary_positions(target_date)
     hd_gates = calculate_hd_gates(positions)
@@ -151,7 +148,7 @@ def generate_human_design(target_date: date, profile: UserProfile) -> HumanDesig
         )
         for planet, gate, line in hd_gates
     ]
-    
+
     return HumanDesignData(
         type=hd_type,
         strategy=strategies.get(hd_type, "Wait to respond"),
@@ -169,39 +166,48 @@ def generate_human_design(target_date: date, profile: UserProfile) -> HumanDesig
 def generate_i_ching(human_design: HumanDesignData) -> IChingData:
     """
     Generate I Ching data based on Human Design gates.
-    
+
     The 64 Human Design gates correspond to the 64 I Ching hexagrams.
-    
+
     Args:
         human_design: Human Design data with active gates.
-    
+
     Returns:
         IChingData: I Ching hexagram information.
     """
     # Get primary hexagram from Sun gate
     sun_gate = next(
         (g for g in human_design.active_gates if g.planet == "Sun"),
-        human_design.active_gates[0] if human_design.active_gates else None
+        human_design.active_gates[0] if human_design.active_gates else None,
     )
-    
+
     hexagram_num = sun_gate.gate_number if sun_gate else 1
-    
+
     # Simplified hexagram data (full data would be in JSON file)
     hexagram_names = {
         1: "The Creative",
         2: "The Receptive",
         # ... abbreviated, full list in data file
     }
-    
+
     hexagram_name = hexagram_names.get(hexagram_num, f"Hexagram {hexagram_num}")
-    
+
     # Trigram mapping (simplified)
-    upper_trigrams = ["Heaven", "Earth", "Thunder", "Water", "Mountain", "Wind", "Fire", "Lake"]
+    upper_trigrams = [
+        "Heaven",
+        "Earth",
+        "Thunder",
+        "Water",
+        "Mountain",
+        "Wind",
+        "Fire",
+        "Lake",
+    ]
     lower_trigrams = upper_trigrams.copy()
-    
+
     upper = upper_trigrams[(hexagram_num - 1) // 8]
     lower = lower_trigrams[(hexagram_num - 1) % 8]
-    
+
     return IChingData(
         hexagram_number=hexagram_num,
         hexagram_name=hexagram_name,
@@ -224,19 +230,19 @@ def generate_spiritual_reading(
 ) -> SpiritualReading:
     """
     Generate spiritual reading for the day.
-    
+
     Selects from curated texts based on daily energies.
-    
+
     Args:
         moon_data: Moon phase and sign data.
         numerology_data: Numerology data.
         day_of_year: Day number in the year.
-    
+
     Returns:
         SpiritualReading: Daily spiritual reading.
     """
     element = moon_data.sign_element
-    
+
     # Source selection by element
     sources = {
         "Fire": ("Meditations", "Marcus Aurelius", "Stoic", "book"),
@@ -244,11 +250,11 @@ def generate_spiritual_reading(
         "Air": ("Dhammapada", "Buddha", "Buddhist", "scripture"),
         "Water": ("Poetry Collection", "Rumi", "Sufi", "poetry"),
     }
-    
+
     source_title, author, tradition, source_type = sources.get(
         element, ("Tao Te Ching", "Lao Tzu", "Taoist", "book")
     )
-    
+
     # Sample texts (full implementation would load from JSON)
     sample_texts = {
         "Stoic": '"Begin each day by telling yourself: Today I shall meet people who are meddling, ungrateful, arrogant, dishonest, jealous, and surly."',
@@ -256,7 +262,7 @@ def generate_spiritual_reading(
         "Buddhist": '"Mind is the forerunner of all actions. All deeds are led by mind, created by mind."',
         "Sufi": '"Out beyond ideas of wrongdoing and rightdoing, there is a field. I will meet you there."',
     }
-    
+
     return SpiritualReading(
         source_type=source_type,
         tradition=tradition,
@@ -277,119 +283,135 @@ def synthesize_daily_theme(
 ) -> str:
     """
     Synthesize the daily theme from multiple domains.
-    
+
     Args:
         moon_data: Moon data.
         numerology_data: Numerology data.
         human_design: Human Design data.
-    
+
     Returns:
         str: Synthesized daily theme.
     """
     moon_theme = moon_data.energy_theme
     num_theme = numerology_data.day_theme.split(" & ")[0]  # First part
-    
+
     return f"{moon_theme} with {num_theme}"
 
 
 def generate_power_hours(
     biorhythm_data: BiorhythmData,
     moon_data: MoonData,
-) -> List[PowerHour]:
+) -> list[PowerHour]:
     """
     Calculate optimal power hours for the day.
-    
+
     Args:
         biorhythm_data: Biorhythm data.
         moon_data: Moon data.
-    
+
     Returns:
         List[PowerHour]: List of power hour periods.
     """
     hours = []
-    
+
     # Physical peak hours
     if biorhythm_data.physical > 30:
-        hours.append(PowerHour(
-            time_range="7:00 AM - 10:00 AM",
-            optimal_for=["Exercise", "Physical tasks", "Active work"],
-            energy_type="Physical energy peak",
-        ))
-    
+        hours.append(
+            PowerHour(
+                time_range="7:00 AM - 10:00 AM",
+                optimal_for=["Exercise", "Physical tasks", "Active work"],
+                energy_type="Physical energy peak",
+            )
+        )
+
     # Mental peak hours
     if biorhythm_data.intellectual > 30:
-        hours.append(PowerHour(
-            time_range="10:00 AM - 1:00 PM",
-            optimal_for=["Complex thinking", "Important decisions", "Learning"],
-            energy_type="Mental clarity peak",
-        ))
-    
+        hours.append(
+            PowerHour(
+                time_range="10:00 AM - 1:00 PM",
+                optimal_for=["Complex thinking", "Important decisions", "Learning"],
+                energy_type="Mental clarity peak",
+            )
+        )
+
     # Creative hours (emotional + intellectual)
     if biorhythm_data.emotional > 20 and biorhythm_data.intellectual > 20:
-        hours.append(PowerHour(
-            time_range="3:00 PM - 6:00 PM",
-            optimal_for=["Creative projects", "Collaboration", "Expression"],
-            energy_type="Creative synthesis",
-        ))
-    
+        hours.append(
+            PowerHour(
+                time_range="3:00 PM - 6:00 PM",
+                optimal_for=["Creative projects", "Collaboration", "Expression"],
+                energy_type="Creative synthesis",
+            )
+        )
+
     if not hours:
-        hours.append(PowerHour(
-            time_range="When energy feels best",
-            optimal_for=["Routine tasks", "Self-paced work"],
-            energy_type="Moderate energy day",
-        ))
-    
+        hours.append(
+            PowerHour(
+                time_range="When energy feels best",
+                optimal_for=["Routine tasks", "Self-paced work"],
+                energy_type="Moderate energy day",
+            )
+        )
+
     return hours
 
 
 def generate_caution_periods(
     moon_data: MoonData,
     biorhythm_data: BiorhythmData,
-) -> List[CautionPeriod]:
+) -> list[CautionPeriod]:
     """
     Calculate caution periods for the day.
-    
+
     Args:
         moon_data: Moon data.
         biorhythm_data: Biorhythm data.
-    
+
     Returns:
         List[CautionPeriod]: List of caution periods.
     """
     cautions = []
-    
+
     # Moon VOC period
     if moon_data.moon_void_of_course and moon_data.voc_start:
-        cautions.append(CautionPeriod(
-            time_range=f"VOC: {moon_data.voc_start.strftime('%I:%M %p')} - {moon_data.voc_end.strftime('%I:%M %p') if moon_data.voc_end else 'end of day'}",
-            reason="Moon Void of Course",
-            avoid=["Starting new projects", "Major purchases", "Important decisions"],
-            instead_do=["Routine tasks", "Review work", "Rest"],
-        ))
-    
+        cautions.append(
+            CautionPeriod(
+                time_range=f"VOC: {moon_data.voc_start.strftime('%I:%M %p')} - {moon_data.voc_end.strftime('%I:%M %p') if moon_data.voc_end else 'end of day'}",
+                reason="Moon Void of Course",
+                avoid=[
+                    "Starting new projects",
+                    "Major purchases",
+                    "Important decisions",
+                ],
+                instead_do=["Routine tasks", "Review work", "Rest"],
+            )
+        )
+
     # Intellectual low period
     if biorhythm_data.intellectual < -20:
-        cautions.append(CautionPeriod(
-            time_range="Afternoon (1:00 PM - 4:00 PM)",
-            reason="Mental energy low",
-            avoid=["Complex analysis", "Important negotiations"],
-            instead_do=["Physical tasks", "Routine work"],
-        ))
-    
+        cautions.append(
+            CautionPeriod(
+                time_range="Afternoon (1:00 PM - 4:00 PM)",
+                reason="Mental energy low",
+                avoid=["Complex analysis", "Important negotiations"],
+                instead_do=["Physical tasks", "Routine work"],
+            )
+        )
+
     return cautions
 
 
 def generate_affirmation(daily_theme: str, moon_data: MoonData) -> str:
     """Generate daily affirmation."""
     element = moon_data.sign_element
-    
+
     affirmations = {
         "Fire": "I embrace my power and shine brightly",
         "Earth": "I build my dreams with patient, steady hands",
         "Air": "I welcome new ideas and connections with an open mind",
         "Water": "I flow with life's currents and trust my intuition",
     }
-    
+
     return affirmations.get(element, "I am aligned with my highest path")
 
 
@@ -404,71 +426,71 @@ def generate_daily_entry(
 ) -> DailyPreparation:
     """
     Generate complete daily preparation entry.
-    
+
     This is the main orchestration function that brings together
     all calculators and analyzers to produce a full daily guide.
-    
+
     Args:
         target_date: Date to generate for.
         profile: User profile with birth data.
-    
+
     Returns:
         DailyPreparation: Complete daily sovereign alignment guide.
     """
     # Calculate life path if not cached
     if profile.life_path_number is None:
         profile.life_path_number = calculate_life_path(profile.birth_data.date)
-    
+
     # ==========================================================================
     # Calculate all domain data
     # ==========================================================================
-    
+
     # Moon
     moon_data = calculate_moon_data(target_date)
-    
+
     # Numerology
     numerology_data = calculate_numerology_for_day(
         profile.birth_data.date,
         target_date,
         profile.life_path_number,
     )
-    
+
     # Biorhythm
     biorhythm_data = calculate_biorhythm_for_day(
         profile.birth_data.date,
         target_date,
     )
-    
+
     # Solar Transit
     solar_transit = generate_solar_transit(target_date, profile)
-    
+
     # Human Design
     human_design = generate_human_design(target_date, profile)
-    
+
     # I Ching
     i_ching = generate_i_ching(human_design)
-    
+
     # ==========================================================================
     # Run analyzers
     # ==========================================================================
-    
+
     # Risk Analysis
     risk_analysis = calculate_risk_analysis(
         moon_data,
         biorhythm_data,
         numerology_data,
     )
-    
+
     # Exercise
     exercise = generate_exercise_recommendation(biorhythm_data, moon_data)
-    
+
     # Nourishment
     nourishment = generate_nourishment_guidance(moon_data, biorhythm_data)
-    
+
     # ==========================================================================
     # Generate practices
     # ==========================================================================
-    
+
     morning_ritual = generate_morning_ritual(moon_data, biorhythm_data)
     meditation = generate_meditation_practice(moon_data, biorhythm_data)
     journaling = generate_journaling_prompts(moon_data, biorhythm_data)
@@ -478,30 +500,30 @@ def generate_daily_entry(
         target_date.timetuple().tm_yday,
     )
     evening_ritual = generate_evening_ritual(biorhythm_data)
-    
+
     # ==========================================================================
     # Synthesize
     # ==========================================================================
-    
+
     daily_theme = synthesize_daily_theme(moon_data, numerology_data, human_design)
     power_hours = generate_power_hours(biorhythm_data, moon_data)
     caution_periods = generate_caution_periods(moon_data, biorhythm_data)
     affirmation = generate_affirmation(daily_theme, moon_data)
     mantra = generate_mantra(i_ching)
-    
+
     # Theme keywords
     keywords = [
         moon_data.sign_element,
         numerology_data.energy_quality,
         human_design.signature_theme,
     ]
-    
+
     # Closing reflection
     closing = f"Rest well knowing you honored {moon_data.energy_theme.lower()} today"
-    
+
     # Tomorrow preview (simplified)
     tomorrow_preview = "New energies await tomorrow - trust the unfolding"
-    
+
     return DailyPreparation(
         date=target_date,
         day_of_week=target_date.strftime("%A"),

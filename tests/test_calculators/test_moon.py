@@ -134,9 +134,14 @@ class TestCalculateMoonDataForDay:
     def test_returns_moon_data(self):
         result = calculate_moon_data_for_day(date(2026, 1, 15))
         assert result.phase in [
-            "New Moon", "Waxing Crescent", "First Quarter",
-            "Waxing Gibbous", "Full Moon", "Waning Gibbous",
-            "Last Quarter", "Waning Crescent",
+            "New Moon",
+            "Waxing Crescent",
+            "First Quarter",
+            "Waxing Gibbous",
+            "Full Moon",
+            "Waning Gibbous",
+            "Last Quarter",
+            "Waning Crescent",
         ]
         assert 0 <= result.phase_percentage <= 100
         assert result.zodiac_sign in ZODIAC_SIGNS
@@ -171,6 +176,7 @@ class TestMoonPerformance:
     def test_single_day_under_two_seconds(self):
         """Single day calculation must complete in < 2 seconds."""
         import time
+
         start = time.perf_counter()
         calculate_moon_data_for_day(date(2026, 7, 4))
         elapsed = time.perf_counter() - start
@@ -179,6 +185,7 @@ class TestMoonPerformance:
     def test_full_year_under_sixty_seconds(self):
         """365 days of moon calculations should complete in < 60 seconds."""
         import time
+
         start = time.perf_counter()
         for day_offset in range(365):
             d = date(2026, 1, 1) + __import__("datetime").timedelta(days=day_offset)

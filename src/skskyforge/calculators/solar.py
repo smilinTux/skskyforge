@@ -13,10 +13,8 @@ Licensed under AGPL-3.0. See LICENSE for details.
 
 import math
 from datetime import date, datetime
-from typing import Tuple
 
-from .moon import ZODIAC_SIGNS, get_zodiac_sign_from_longitude
-
+from .moon import get_zodiac_sign_from_longitude
 
 # House themes by number (1-12)
 HOUSE_THEMES = {
@@ -60,9 +58,11 @@ def _sun_longitude_simple(target_date: date) -> float:
     M_rad = math.radians(M)
 
     # Equation of center (degrees)
-    C = (1.9146 * math.sin(M_rad)
-         + 0.0200 * math.sin(2 * M_rad)
-         + 0.0003 * math.sin(3 * M_rad))
+    C = (
+        1.9146 * math.sin(M_rad)
+        + 0.0200 * math.sin(2 * M_rad)
+        + 0.0003 * math.sin(3 * M_rad)
+    )
 
     # Sun's ecliptic longitude
     sun_long = (L0 + C) % 360
@@ -133,7 +133,10 @@ try:
     def _sun_longitude_swe(target_date: date) -> float:
         """Calculate sun longitude using Swiss Ephemeris."""
         jd = swe.julday(
-            target_date.year, target_date.month, target_date.day, 12.0,
+            target_date.year,
+            target_date.month,
+            target_date.day,
+            12.0,
         )
         sun_pos = swe.calc_ut(jd, swe.SUN)[0]
         return sun_pos[0]
